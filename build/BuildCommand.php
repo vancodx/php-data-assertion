@@ -19,7 +19,7 @@ class BuildCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $basePath = dirname(__DIR__) . '/src/Traits';
+        $basePath = dirname(__DIR__) . '/src';
         $sourceClass = new ReflectionClass(V::class);
         (new TraitFileCreator($basePath, $sourceClass, FunctionPrefix::ARG))->create();
         (new TraitFileCreator($basePath, $sourceClass, FunctionPrefix::VALUE))->create();
