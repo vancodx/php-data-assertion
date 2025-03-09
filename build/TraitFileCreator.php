@@ -21,7 +21,7 @@ class TraitFileCreator
     /**
      * @var FunctionPrefix
      */
-    protected FunctionPrefix $prefix;
+    protected FunctionPrefix $funcPrefix;
 
     /**
      * @var list<ReflectionClass>
@@ -36,10 +36,10 @@ class TraitFileCreator
     /**
      * @param string $basePath
      * @param ReflectionClass $sourceClass
-     * @param FunctionPrefix $prefix
+     * @param FunctionPrefix $funcPrefix
      * @return void
      */
-    public function __construct(string $basePath, ReflectionClass $sourceClass, FunctionPrefix $prefix)
+    public function __construct(string $basePath, ReflectionClass $sourceClass, FunctionPrefix $funcPrefix)
     {
         if (!V::isStrLen($basePath)) {
             throw V::newArgumentException(compact('basePath'));
@@ -54,7 +54,7 @@ class TraitFileCreator
 
         $this->basePath = $basePath;
         $this->sourceClass = $sourceClass;
-        $this->prefix = $prefix;
+        $this->funcPrefix = $funcPrefix;
 
         $this->traits = $sourceClass->getTraits();
         $this->methods = array_values(array_filter(
@@ -99,13 +99,13 @@ class TraitFileCreator
     {
         $basePath = $this->basePath;
         $sourceClass = $this->sourceClass;
-        $prefix = $this->prefix;
+        $funcPrefix = $this->funcPrefix;
 
         $sourceClassName = $sourceClass->getName();
         if ($sourceClassName === V::class) {
-            return $basePath . '/' . ucfirst($prefix->value) . 'Trait.php';
+            return $basePath . '/' . ucfirst($funcPrefix->value) . 'Trait.php';
         } else {
-            return $basePath . '/' . ucfirst($prefix->value)
+            return $basePath . '/' . ucfirst($funcPrefix->value)
                 . '/' . str_replace('\\', '/', substr($sourceClassName, 31)) . '.php';
         }
     }
@@ -117,7 +117,7 @@ class TraitFileCreator
     {
         $basePath = $this->basePath;
         $sourceClass = $this->sourceClass;
-        $prefix = $this->prefix;
+        $funcPrefix = $this->funcPrefix;
 
         $data = '<?php declare(strict_types=1);' . "\n\n";
         $data .= 'namespace ' . $this->buildNamespace() . ';' . "\n\n";
@@ -125,7 +125,7 @@ class TraitFileCreator
         $data .= '{' . "\n";
 
         foreach ($this->traits as $trait) {
-            $traitFileCreator = new static($basePath, $trait, $prefix);
+            $traitFileCreator = new static($basePath, $trait, $funcPrefix);
             if ($traitFileCreator->hasTraits() || $traitFileCreator->hasMethods()) {
                 $traitFileCreator->create();
             }
@@ -141,7 +141,7 @@ class TraitFileCreator
     protected function buildNamespace(): string
     {
         $sourceClass = $this->sourceClass;
-        $prefix = $this->prefix;
+        $funcPrefix = $this->funcPrefix;
 
         $sourceClassName = $sourceClass->getName();
         if ($sourceClassName === V::class) {
@@ -149,9 +149,9 @@ class TraitFileCreator
         } else {
             $endNamespacePart = substr(strrchr($sourceClassName, '\\', true), 31);
             if (strlen($endNamespacePart)) {
-                return 'VanCodX\Data\Assertion\Traits\\' . ucfirst($prefix->value) . '\\' . $endNamespacePart;
+                return 'VanCodX\Data\Assertion\Traits\\' . ucfirst($funcPrefix->value) . '\\' . $endNamespacePart;
             } else {
-                return 'VanCodX\Data\Assertion\Traits\\' . ucfirst($prefix->value);
+                return 'VanCodX\Data\Assertion\Traits\\' . ucfirst($funcPrefix->value);
             }
         }
     }
@@ -162,11 +162,11 @@ class TraitFileCreator
     protected function buildShortName(): string
     {
         $sourceClass = $this->sourceClass;
-        $prefix = $this->prefix;
+        $funcPrefix = $this->funcPrefix;
 
         $sourceClassName = $sourceClass->getName();
         if ($sourceClassName === V::class) {
-            return ucfirst($prefix->value) . 'Trait';
+            return ucfirst($funcPrefix->value) . 'Trait';
         } else {
             return substr(strrchr($sourceClassName, '\\'), 1);
         }
