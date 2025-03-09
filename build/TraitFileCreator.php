@@ -16,7 +16,12 @@ class TraitFileCreator
     /**
      * @var ReflectionClass
      */
-    protected ReflectionClass $class;
+    protected ReflectionClass $sourceClass;
+
+    /**
+     * @var FunctionPrefix
+     */
+    protected FunctionPrefix $prefix;
 
     /**
      * @var list<ReflectionClass>
@@ -29,36 +34,31 @@ class TraitFileCreator
     protected array $methods;
 
     /**
-     * @var FunctionPrefix
-     */
-    protected FunctionPrefix $prefix;
-
-    /**
      * @param string $basePath
-     * @param ReflectionClass $class
+     * @param ReflectionClass $sourceClass
      * @param FunctionPrefix $prefix
      * @return void
      */
-    public function __construct(string $basePath, ReflectionClass $class, FunctionPrefix $prefix)
+    public function __construct(string $basePath, ReflectionClass $sourceClass, FunctionPrefix $prefix)
     {
         if (!V::isStrLen($basePath)) {
             throw V::newArgumentException(compact('basePath'));
         }
-        $className = $class->getName();
+        $sourceClassName = $sourceClass->getName();
         if (
-            ($className !== V::class)
-            && (!$class->isTrait() || !str_starts_with($className, 'VanCodX\Data\Validation\Traits\\'))
+            ($sourceClassName !== V::class)
+            && (!$sourceClass->isTrait() || !str_starts_with($sourceClassName, 'VanCodX\Data\Validation\Traits\\'))
         ) {
-            throw V::newArgumentException(compact('class'));
+            throw V::newArgumentException(compact('sourceClass'));
         }
 
         $this->basePath = $basePath;
-        $this->class = $class;
+        $this->sourceClass = $sourceClass;
         $this->prefix = $prefix;
 
-        $this->traits = $class->getTraits();
+        $this->traits = $sourceClass->getTraits();
         $this->methods = array_values(array_filter(
-            $class->getMethods(ReflectionMethod::IS_STATIC | ReflectionMethod::IS_PUBLIC),
+            $sourceClass->getMethods(ReflectionMethod::IS_STATIC | ReflectionMethod::IS_PUBLIC),
             static fn (ReflectionMethod $method): bool => str_starts_with($method->getName(), 'is')
         ));
     }
@@ -98,15 +98,15 @@ class TraitFileCreator
     protected function buildFilename(): string
     {
         $basePath = $this->basePath;
-        $class = $this->class;
+        $sourceClass = $this->sourceClass;
         $prefix = $this->prefix;
 
-        $className = $class->getName();
-        if ($className === V::class) {
+        $sourceClassName = $sourceClass->getName();
+        if ($sourceClassName === V::class) {
             return $basePath . '/' . ucfirst($prefix->value) . 'Trait.php';
         } else {
             return $basePath . '/' . ucfirst($prefix->value)
-                . '/' . str_replace('\\', '/', substr($className, 31)) . '.php';
+                . '/' . str_replace('\\', '/', substr($sourceClassName, 31)) . '.php';
         }
     }
 
@@ -116,7 +116,7 @@ class TraitFileCreator
     protected function buildData(): string
     {
         $basePath = $this->basePath;
-        $class = $this->class;
+        $sourceClass = $this->sourceClass;
         $prefix = $this->prefix;
 
         $data = '<?php declare(strict_types=1);' . "\n\n";
@@ -140,16 +140,16 @@ class TraitFileCreator
      */
     protected function buildNamespace(): string
     {
-        $class = $this->class;
+        $sourceClass = $this->sourceClass;
         $prefix = $this->prefix;
 
-        $className = $class->getName();
-        if ($className === V::class) {
+        $sourceClassName = $sourceClass->getName();
+        if ($sourceClassName === V::class) {
             return 'VanCodX\Data\Assertion\Traits';
         } else {
-            $x = substr(strrchr($className, '\\', true), 31);
-            if (strlen($x)) {
-                return 'VanCodX\Data\Assertion\Traits\\' . ucfirst($prefix->value) . '\\' . $x;
+            $endNamespacePart = substr(strrchr($sourceClassName, '\\', true), 31);
+            if (strlen($endNamespacePart)) {
+                return 'VanCodX\Data\Assertion\Traits\\' . ucfirst($prefix->value) . '\\' . $endNamespacePart;
             } else {
                 return 'VanCodX\Data\Assertion\Traits\\' . ucfirst($prefix->value);
             }
@@ -161,14 +161,14 @@ class TraitFileCreator
      */
     protected function buildShortName(): string
     {
-        $class = $this->class;
+        $sourceClass = $this->sourceClass;
         $prefix = $this->prefix;
 
-        $className = $class->getName();
-        if ($className === V::class) {
+        $sourceClassName = $sourceClass->getName();
+        if ($sourceClassName === V::class) {
             return ucfirst($prefix->value) . 'Trait';
         } else {
-            return substr(strrchr($className, '\\'), 1);
+            return substr(strrchr($sourceClassName, '\\'), 1);
         }
     }
 }

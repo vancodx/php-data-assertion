@@ -12,19 +12,22 @@ trait TryGetArgumentNameTrait
      */
     protected static function tryGetArgumentName(): ?string
     {
-        $funcCall = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
-        if (!array_key_exists('file', $funcCall) || !array_key_exists('line', $funcCall)) {
-            return null;
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+        if (count($trace) >= 2) {
+            $call = $trace[1];
+            if (array_key_exists('file', $call) && array_key_exists('line', $call)) {
+                ['file' => $filename, 'line' => $line, 'function' => $funcName] = $call;
+                try {
+                    $file = new SplFileObject($filename);
+                    $file->seek($line - 1);
+                    $lineText = $file->fgets();
+                } catch (RuntimeException) {
+                    return null;
+                }
+                return preg_match('~::' . $funcName . '\(\$([_[:alpha:]][_[:alnum:]]*)\);~', $lineText, $match)
+                    ? $match[1] : null;
+            }
         }
-        ['file' => $filename, 'line' => $line, 'function' => $funcName] = $funcCall;
-        try {
-            $file = new SplFileObject($filename);
-            $file->seek($line - 1);
-            $lineText = $file->fgets();
-        } catch (RuntimeException) {
-            return null;
-        }
-        return preg_match('~::' . $funcName . '\(\$([_[:alpha:]][_[:alnum:]]*)\);~', $lineText, $match)
-            ? $match[1] : null;
+        return null;
     }
 }
