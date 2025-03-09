@@ -2,12 +2,16 @@
 
 namespace VanCodX\Data\Assertion;
 
+use VanCodX\Data\Assertion\Traits\ArgTrait;
 use VanCodX\Data\Assertion\Traits\TryGetArgumentNameTrait;
+use VanCodX\Data\Assertion\Traits\ValueTrait;
 use VanCodX\Data\Validation\Validation as V;
 
 class Assertion
 {
     use TryGetArgumentNameTrait;
+    use ArgTrait;
+    use ValueTrait;
 
     /**
      * @param mixed $value
