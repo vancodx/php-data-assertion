@@ -6,6 +6,9 @@ use ReflectionClass;
 use ReflectionMethod;
 use VanCodX\Data\Validation\Validation as V;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class TraitFileCreator
 {
     /**
@@ -14,7 +17,7 @@ class TraitFileCreator
     protected string $basePath;
 
     /**
-     * @var ReflectionClass
+     * @var ReflectionClass<object>
      */
     protected ReflectionClass $sourceClass;
 
@@ -24,18 +27,8 @@ class TraitFileCreator
     protected FunctionPrefix $functionPrefix;
 
     /**
-     * @var list<ReflectionClass>
-     */
-    protected array $traits;
-
-    /**
-     * @var list<ReflectionMethod>
-     */
-    protected array $methods;
-
-    /**
      * @param string $basePath
-     * @param ReflectionClass $sourceClass
+     * @param ReflectionClass<object> $sourceClass
      * @param FunctionPrefix $functionPrefix
      * @return void
      */
@@ -51,16 +44,9 @@ class TraitFileCreator
         ) {
             throw V::newArgumentException(compact('sourceClass'));
         }
-
         $this->basePath = $basePath;
         $this->sourceClass = $sourceClass;
         $this->functionPrefix = $functionPrefix;
-
-        $this->traits = $sourceClass->getTraits();
-        $this->methods = array_values(array_filter(
-            $sourceClass->getMethods(ReflectionMethod::IS_STATIC | ReflectionMethod::IS_PUBLIC),
-            static fn(ReflectionMethod $method): bool => str_starts_with($method->getName(), 'is')
-        ));
     }
 
     /**
@@ -72,7 +58,7 @@ class TraitFileCreator
     }
 
     /**
-     * @return ReflectionClass
+     * @return ReflectionClass<object>
      */
     protected function getSourceClass(): ReflectionClass
     {
@@ -85,28 +71,6 @@ class TraitFileCreator
     protected function getFunctionPrefix(): FunctionPrefix
     {
         return $this->functionPrefix;
-    }
-
-    /**
-     * @return void
-     */
-    public function create(): void
-    {
-        $filename = $this->getFilename();
-        $directory = dirname($filename);
-        if (!is_dir($directory)) {
-            mkdir($directory, recursive: true);
-        }
-        file_put_contents($filename, $this->buildData());
-    }
-
-    /**
-     * @return string
-     */
-    public function getFilename(): string
-    {
-        return $this->getBasePath() . '/' . str_replace('\\', '/', $this->getRelativeNamespace())
-            . '/' . $this->getName() . '.php';
     }
 
     /**
@@ -126,10 +90,9 @@ class TraitFileCreator
         if ($sourceClass->getName() === V::class) {
             return 'Traits';
         } else {
-            // ???
-            $endNamespacePart = substr($sourceClass->getNamespaceName(), 31);
-            if (strlen($endNamespacePart)) {
-                return 'Traits\\' . ucfirst($this->getFunctionPrefix()->value) . '\\' . $endNamespacePart;
+            $tailPart = substr($sourceClass->getNamespaceName(), 31);
+            if (strlen($tailPart)) {
+                return 'Traits\\' . ucfirst($this->getFunctionPrefix()->value) . '\\' . $tailPart;
             } else {
                 return 'Traits\\' . ucfirst($this->getFunctionPrefix()->value);
             }
@@ -162,7 +125,15 @@ class TraitFileCreator
      */
     public function hasTraits(): bool
     {
-        return count($this->traits) > 0;
+        return (bool)count($this->getTraits());
+    }
+
+    /**
+     * @return list<ReflectionClass<object>>
+     */
+    protected function getTraits(): array
+    {
+        return array_values($this->getSourceClass()->getTraits());
     }
 
     /**
@@ -170,7 +141,40 @@ class TraitFileCreator
      */
     public function hasMethods(): bool
     {
-        return count($this->methods) > 0;
+        return (bool)count($this->getMethods());
+    }
+
+    /**
+     * @return list<ReflectionMethod>
+     */
+    protected function getMethods(): array
+    {
+        return array_values(array_filter(
+            $this->getSourceClass()->getMethods(ReflectionMethod::IS_STATIC | ReflectionMethod::IS_PUBLIC),
+            static fn (ReflectionMethod $method): bool => str_starts_with($method->getName(), 'is')
+        ));
+    }
+
+    /**
+     * @return void
+     */
+    public function create(): void
+    {
+        $filename = $this->getFilename();
+        $directory = dirname($filename);
+        if (!is_dir($directory)) {
+            mkdir($directory, recursive: true);
+        }
+        file_put_contents($filename, $this->buildData());
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilename(): string
+    {
+        return $this->getBasePath() . '/' . str_replace('\\', '/', $this->getRelativeNamespace())
+            . '/' . $this->getName() . '.php';
     }
 
     /**
@@ -181,25 +185,25 @@ class TraitFileCreator
         $basePath = $this->getBasePath();
         $functionPrefix = $this->getFunctionPrefix();
 
-        $subCreators = array_map(static fn(ReflectionClass $trait): static => new static($basePath, $trait, $functionPrefix), $this->traits);
+        $subCreators = array_values(array_filter(
+            array_map(
+                static fn (ReflectionClass $trait): static => new static($basePath, $trait, $functionPrefix),
+                $this->getTraits()
+            ),
+            static fn (self $subCreator): bool => $subCreator->hasTraits() || $subCreator->hasMethods()
+        ));
+
         foreach ($subCreators as $subCreator) {
-            if ($subCreator->hasTraits() || $subCreator->hasMethods()) {
-                $subCreator->create();
-            }
+            $subCreator->create();
         }
 
         $data = '<?php declare(strict_types=1);' . "\n\n";
         $data .= 'namespace ' . $this->getNamespace() . ';' . "\n\n";
 
-        $extraNewLineRequired = false;
         foreach ($subCreators as $subCreator) {
-            if ($subCreator->hasTraits() || $subCreator->hasMethods()) {
-                $data .= 'use ' . $subCreator->getFullName() . ';' . "\n";
-                $extraNewLineRequired = true;
-            }
+            $data .= 'use ' . $subCreator->getFullName() . ';' . "\n";
         }
-        if ($extraNewLineRequired) {
-            $extraNewLineRequired = false;
+        if (count($subCreators)) {
             $data .= "\n";
         }
 
@@ -207,9 +211,7 @@ class TraitFileCreator
         $data .= '{' . "\n";
 
         foreach ($subCreators as $subCreator) {
-            if ($subCreator->hasTraits() || $subCreator->hasMethods()) {
-                $data .= '    use ' . $subCreator->getName() . ';' . "\n";
-            }
+            $data .= '    use ' . $subCreator->getName() . ';' . "\n";
         }
 
         $data .= '}' . "\n";

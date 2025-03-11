@@ -2,16 +2,16 @@
 
 namespace VanCodX\Data\Assertion\Traits\Arg;
 
-use VanCodX\Data\Assertion\Traits\Arg\OrNull\BoolOrNullTrait;
-use VanCodX\Data\Assertion\Traits\Arg\OrNull\IntOrNullTrait;
-use VanCodX\Data\Assertion\Traits\Arg\OrNull\FloatOrNullTrait;
-use VanCodX\Data\Assertion\Traits\Arg\OrNull\NumOrNullTrait;
-use VanCodX\Data\Assertion\Traits\Arg\OrNull\StrOrNullTrait;
-use VanCodX\Data\Assertion\Traits\Arg\OrNull\MiscOrNullTrait;
 use VanCodX\Data\Assertion\Traits\Arg\OrNull\ArrOrNullTrait;
-use VanCodX\Data\Assertion\Traits\Arg\OrNull\ListOrNullTrait;
 use VanCodX\Data\Assertion\Traits\Arg\OrNull\AssocOrNullTrait;
+use VanCodX\Data\Assertion\Traits\Arg\OrNull\BoolOrNullTrait;
+use VanCodX\Data\Assertion\Traits\Arg\OrNull\FloatOrNullTrait;
+use VanCodX\Data\Assertion\Traits\Arg\OrNull\IntOrNullTrait;
+use VanCodX\Data\Assertion\Traits\Arg\OrNull\ListOrNullTrait;
+use VanCodX\Data\Assertion\Traits\Arg\OrNull\MiscOrNullTrait;
+use VanCodX\Data\Assertion\Traits\Arg\OrNull\NumOrNullTrait;
 use VanCodX\Data\Assertion\Traits\Arg\OrNull\ObjOrNullTrait;
+use VanCodX\Data\Assertion\Traits\Arg\OrNull\StrOrNullTrait;
 
 trait OrNullTraits
 {

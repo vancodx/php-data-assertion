@@ -2,11 +2,11 @@
 
 namespace VanCodX\Data\Assertion\Traits;
 
-use VanCodX\Data\Assertion\Traits\Value\BasicTraits;
-use VanCodX\Data\Assertion\Traits\Value\OrNullTraits;
 use VanCodX\Data\Assertion\Traits\Value\ArrOfTraits;
-use VanCodX\Data\Assertion\Traits\Value\ListOfTraits;
 use VanCodX\Data\Assertion\Traits\Value\AssocOfTraits;
+use VanCodX\Data\Assertion\Traits\Value\BasicTraits;
+use VanCodX\Data\Assertion\Traits\Value\ListOfTraits;
+use VanCodX\Data\Assertion\Traits\Value\OrNullTraits;
 
 trait ValueTrait
 {

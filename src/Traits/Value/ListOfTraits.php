@@ -2,12 +2,12 @@
 
 namespace VanCodX\Data\Assertion\Traits\Value;
 
-use VanCodX\Data\Assertion\Traits\Value\ListOf\ListOfTrait;
-use VanCodX\Data\Assertion\Traits\Value\ListOf\ListLenOfTrait;
-use VanCodX\Data\Assertion\Traits\Value\ListOf\ListSoloOfTrait;
 use VanCodX\Data\Assertion\Traits\Value\ListOf\ListDuoOfTrait;
-use VanCodX\Data\Assertion\Traits\Value\ListOf\ListTrioOfTrait;
+use VanCodX\Data\Assertion\Traits\Value\ListOf\ListLenOfTrait;
+use VanCodX\Data\Assertion\Traits\Value\ListOf\ListOfTrait;
 use VanCodX\Data\Assertion\Traits\Value\ListOf\ListQuadOfTrait;
+use VanCodX\Data\Assertion\Traits\Value\ListOf\ListSoloOfTrait;
+use VanCodX\Data\Assertion\Traits\Value\ListOf\ListTrioOfTrait;
 
 trait ListOfTraits
 {
