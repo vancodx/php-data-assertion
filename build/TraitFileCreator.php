@@ -200,10 +200,12 @@ class TraitFileCreator
         $data = '<?php declare(strict_types=1);' . "\n\n";
         $data .= 'namespace ' . $this->getNamespace() . ';' . "\n\n";
 
-        foreach ($subCreators as $subCreator) {
-            $data .= 'use ' . $subCreator->getFullName() . ';' . "\n";
+        $fullNames = array_map(static fn (self $subCreator): string => $subCreator->getFullName(), $subCreators);
+        sort($fullNames);
+        foreach ($fullNames as $fullName) {
+            $data .= 'use ' . $fullName . ';' . "\n";
         }
-        if (count($subCreators)) {
+        if (count($fullNames)) {
             $data .= "\n";
         }
 
