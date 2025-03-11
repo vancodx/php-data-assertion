@@ -90,12 +90,12 @@ class TraitFileCreator
         if ($sourceClass->getName() === V::class) {
             return 'Traits';
         } else {
+            $relativeNamespace = 'Traits\\' . ucfirst($this->getFunctionPrefix()->value);
             $tailPart = substr($sourceClass->getNamespaceName(), 31);
             if (strlen($tailPart)) {
-                return 'Traits\\' . ucfirst($this->getFunctionPrefix()->value) . '\\' . $tailPart;
-            } else {
-                return 'Traits\\' . ucfirst($this->getFunctionPrefix()->value);
+                $relativeNamespace .= '\\' . $tailPart;
             }
+            return $relativeNamespace;
         }
     }
 
