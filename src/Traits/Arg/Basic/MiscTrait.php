@@ -8,29 +8,29 @@ trait MiscTrait
 {
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException
      * @phpstan-assert null $value
      */
-    public static function argIsNull(mixed $value, string $argName = null): void
+    public static function argIsNull(mixed $value, string $varName = null): void
     {
         if (!V::isNull($value)) {
-            throw static::newArgumentException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newArgumentException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException
      * @phpstan-assert resource $value
      */
-    public static function argIsRes(mixed $value, string $argName = null): void
+    public static function argIsRes(mixed $value, string $varName = null): void
     {
         if (!V::isRes($value)) {
-            throw static::newArgumentException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newArgumentException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 }

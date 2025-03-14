@@ -58,7 +58,7 @@ class MethodCodeConverter
             throw V::newValueException(compact('docComment'));
         }
 
-        $replacement = '@param string $argName [optional]' . "\n";
+        $replacement = '@param string $varName [optional]' . "\n";
         $replacement .= '     * @return void' . "\n";
         if ($functionPrefix === FunctionPrefix::ARG) {
             $replacement .= '     * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException' . "\n";
@@ -77,7 +77,7 @@ class MethodCodeConverter
             $data .= (($type instanceof ReflectionNamedType) ? $type->getName() : 'unknown')
                 . ' $' . $parameter->getName() . ', ';
         }
-        $data .= 'string $argName = null): void' . "\n";
+        $data .= 'string $varName = null): void' . "\n";
 
         $data .= '    {' . "\n";
         $data .= '        if (!V::' . $sourceMethod->getName() . '(';
@@ -95,7 +95,7 @@ class MethodCodeConverter
         } else {
             $data .= '            throw static::newValueException';
         }
-        $data .= '([$argName ?: (static::tryGetArgumentName() ?: \'value\') => $value]);' . "\n";
+        $data .= '([$varName ?: (static::tryGetVariableName() ?: \'value\') => $value]);' . "\n";
 
         $data .= '        }' . "\n";
         $data .= '    }' . "\n";

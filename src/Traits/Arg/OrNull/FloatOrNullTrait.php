@@ -8,57 +8,57 @@ trait FloatOrNullTrait
 {
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException
      * @phpstan-assert float|null $value
      */
-    public static function argIsFloatOrNull(mixed $value, string $argName = null): void
+    public static function argIsFloatOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isFloatOrNull($value)) {
-            throw static::newArgumentException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newArgumentException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException
      * @phpstan-assert float|null $value
      */
-    public static function argIsUFloatOrNull(mixed $value, string $argName = null): void
+    public static function argIsUFloatOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isUFloatOrNull($value)) {
-            throw static::newArgumentException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newArgumentException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException
      * @phpstan-assert float|null $value
      */
-    public static function argIsPosFloatOrNull(mixed $value, string $argName = null): void
+    public static function argIsPosFloatOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isPosFloatOrNull($value)) {
-            throw static::newArgumentException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newArgumentException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException
      * @phpstan-assert float|null $value
      */
-    public static function argIsNegFloatOrNull(mixed $value, string $argName = null): void
+    public static function argIsNegFloatOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isNegFloatOrNull($value)) {
-            throw static::newArgumentException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newArgumentException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 }

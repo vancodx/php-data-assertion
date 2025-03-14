@@ -8,99 +8,99 @@ trait ArrOrNullTrait
 {
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ValueException
      * @phpstan-assert array<mixed>|null $value
      */
-    public static function valueIsArrOrNull(mixed $value, string $argName = null): void
+    public static function valueIsArrOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isArrOrNull($value)) {
-            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ValueException
      * @phpstan-assert non-empty-array<mixed>|null $value
      */
-    public static function valueIsArrLenOrNull(mixed $value, string $argName = null): void
+    public static function valueIsArrLenOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isArrLenOrNull($value)) {
-            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ValueException
      * @phpstan-assert array{}|null $value
      */
-    public static function valueIsEmptyArrOrNull(mixed $value, string $argName = null): void
+    public static function valueIsEmptyArrOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isEmptyArrOrNull($value)) {
-            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ValueException
      * @phpstan-assert array{mixed}|null $value
      */
-    public static function valueIsArrSoloOrNull(mixed $value, string $argName = null): void
+    public static function valueIsArrSoloOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isArrSoloOrNull($value)) {
-            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ValueException
      * @phpstan-assert array{mixed, mixed}|null $value
      */
-    public static function valueIsArrDuoOrNull(mixed $value, string $argName = null): void
+    public static function valueIsArrDuoOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isArrDuoOrNull($value)) {
-            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ValueException
      * @phpstan-assert array{mixed, mixed, mixed}|null $value
      */
-    public static function valueIsArrTrioOrNull(mixed $value, string $argName = null): void
+    public static function valueIsArrTrioOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isArrTrioOrNull($value)) {
-            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ValueException
      * @phpstan-assert array{mixed, mixed, mixed, mixed}|null $value
      */
-    public static function valueIsArrQuadOrNull(mixed $value, string $argName = null): void
+    public static function valueIsArrQuadOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isArrQuadOrNull($value)) {
-            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 }

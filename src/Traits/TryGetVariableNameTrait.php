@@ -5,12 +5,12 @@ namespace VanCodX\Data\Assertion\Traits;
 use RuntimeException;
 use SplFileObject;
 
-trait TryGetArgumentNameTrait
+trait TryGetVariableNameTrait
 {
     /**
      * @return string|null
      */
-    protected static function tryGetArgumentName(): ?string
+    protected static function tryGetVariableName(): ?string
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
         if (count($trace) >= 2) {

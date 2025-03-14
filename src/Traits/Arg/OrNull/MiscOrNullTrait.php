@@ -8,15 +8,15 @@ trait MiscOrNullTrait
 {
     /**
      * @param mixed $value
-     * @param string $argName [optional]
+     * @param string $varName [optional]
      * @return void
      * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException
      * @phpstan-assert resource|null $value
      */
-    public static function argIsResOrNull(mixed $value, string $argName = null): void
+    public static function argIsResOrNull(mixed $value, string $varName = null): void
     {
         if (!V::isResOrNull($value)) {
-            throw static::newArgumentException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+            throw static::newArgumentException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
 }
