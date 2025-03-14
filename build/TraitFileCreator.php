@@ -123,15 +123,15 @@ class TraitFileCreator
     /**
      * @return bool
      */
-    public function hasTraits(): bool
+    public function hasSubTraits(): bool
     {
-        return (bool)count($this->getTraits());
+        return (bool)count($this->getSubTraits());
     }
 
     /**
      * @return list<ReflectionClass<object>>
      */
-    protected function getTraits(): array
+    protected function getSubTraits(): array
     {
         return array_values($this->getSourceClass()->getTraits());
     }
@@ -149,7 +149,7 @@ class TraitFileCreator
      */
     protected function getMethods(): array
     {
-        if ($this->hasTraits()) {
+        if ($this->hasSubTraits()) {
             return [];
         }
         return array_values(array_filter(
@@ -191,9 +191,9 @@ class TraitFileCreator
         $subCreators = array_values(array_filter(
             array_map(
                 static fn (ReflectionClass $trait): static => new static($basePath, $trait, $functionPrefix),
-                $this->getTraits()
+                $this->getSubTraits()
             ),
-            static fn (self $subCreator): bool => $subCreator->hasTraits() || $subCreator->hasMethods()
+            static fn (self $subCreator): bool => $subCreator->hasSubTraits() || $subCreator->hasMethods()
         ));
         foreach ($subCreators as $subCreator) {
             $subCreator->create();
@@ -202,15 +202,18 @@ class TraitFileCreator
         $data = '<?php declare(strict_types=1);' . "\n\n";
         $data .= 'namespace ' . $this->getNamespace() . ';' . "\n\n";
 
-        $traitFullNames = array_map(static fn (self $subCreator): string => $subCreator->getFullName(), $subCreators);
+        $subTraitFullNames = array_map(
+            static fn (self $subCreator): string => $subCreator->getFullName(),
+            $subCreators
+        );
         if ($this->hasMethods()) {
-            $traitFullNames[] = 'VanCodX\Data\Validation\Validation as V';
+            $subTraitFullNames[] = 'VanCodX\Data\Validation\Validation as V';
         }
-        sort($traitFullNames);
-        foreach ($traitFullNames as $traitFullName) {
-            $data .= 'use ' . $traitFullName . ';' . "\n";
+        sort($subTraitFullNames);
+        foreach ($subTraitFullNames as $subTraitFullName) {
+            $data .= 'use ' . $subTraitFullName . ';' . "\n";
         }
-        if (count($traitFullNames)) {
+        if (count($subTraitFullNames)) {
             $data .= "\n";
         }
 
@@ -222,15 +225,16 @@ class TraitFileCreator
         }
 
         $methods = $this->getMethods();
-        $lastIndex = array_key_last($methods);
-        foreach ($methods as $index => $method) {
+        $lastMethodIndex = array_key_last($methods);
+        foreach ($methods as $methodIndex => $method) {
             $data .= (new MethodCodeConverter($method, $functionPrefix))->convert();
-            if ($index != $lastIndex) {
+            if ($methodIndex != $lastMethodIndex) {
                 $data .= "\n";
             }
         }
 
         $data .= '}' . "\n";
+
         return $data;
     }
 }
