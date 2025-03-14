@@ -2,6 +2,77 @@
 
 namespace VanCodX\Data\Assertion\Traits\Value\Basic;
 
+use VanCodX\Data\Validation\Validation as V;
+
 trait IntTrait
 {
+    /**
+     * @param mixed $value
+     * @param string $argName [optional]
+     * @return void
+     * @throws \VanCodX\Data\Validation\Exceptions\ValueException
+     * @phpstan-assert int $value
+     */
+    public static function valueIsInt(mixed $value, string $argName = null): void
+    {
+        if (!V::isInt($value)) {
+            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+        }
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $argName [optional]
+     * @return void
+     * @throws \VanCodX\Data\Validation\Exceptions\ValueException
+     * @phpstan-assert non-negative-int $value
+     */
+    public static function valueIsUInt(mixed $value, string $argName = null): void
+    {
+        if (!V::isUInt($value)) {
+            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+        }
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $argName [optional]
+     * @return void
+     * @throws \VanCodX\Data\Validation\Exceptions\ValueException
+     * @phpstan-assert positive-int $value
+     */
+    public static function valueIsPosInt(mixed $value, string $argName = null): void
+    {
+        if (!V::isPosInt($value)) {
+            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+        }
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $argName [optional]
+     * @return void
+     * @throws \VanCodX\Data\Validation\Exceptions\ValueException
+     * @phpstan-assert negative-int $value
+     */
+    public static function valueIsNegInt(mixed $value, string $argName = null): void
+    {
+        if (!V::isNegInt($value)) {
+            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+        }
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $argName [optional]
+     * @return void
+     * @throws \VanCodX\Data\Validation\Exceptions\ValueException
+     * @phpstan-assert positive-int $value
+     */
+    public static function valueIsIntId(mixed $value, string $argName = null): void
+    {
+        if (!V::isIntId($value)) {
+            throw static::newValueException([$argName ?: (static::tryGetArgumentName() ?: 'value') => $value]);
+        }
+    }
 }

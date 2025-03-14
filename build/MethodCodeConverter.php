@@ -3,6 +3,8 @@
 namespace Build;
 
 use ReflectionMethod;
+use ReflectionNamedType;
+use VanCodX\Data\Validation\Validation as V;
 
 class MethodCodeConverter
 {
@@ -51,28 +53,49 @@ class MethodCodeConverter
         $sourceMethod = $this->getSourceMethod();
         $functionPrefix = $this->getFunctionPrefix();
 
-        $data = '    /**' . "\n";
-        $data .= '     * @param mixed $value' . "\n";
-        $data .= '     * @param string $name [optional]' . "\n";
-        $data .= '     * @return void' . "\n";
-
-        if ($functionPrefix === FunctionPrefix::ARG) {
-            $data .= '     * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException' . "\n";
-        } else {
-            $data .= '     * @throws \VanCodX\Data\Validation\Exceptions\ValueException' . "\n";
+        $docComment = $sourceMethod->getDocComment();
+        if (!V::isStrLen($docComment)) {
+            throw V::newValueException(compact('docComment'));
         }
 
-        $data .= '     * @phpstan-assert bool $value' . "\n";
-        $data .= '     */' . "\n";
-        $data .= '    public static function ' . $functionPrefix->value . ucfirst($sourceMethod->getName()) . '(mixed $value, string $name = null): void' . "\n";
+        $replacement = '@param string $argName [optional]' . "\n";
+        $replacement .= '     * @return void' . "\n";
+        if ($functionPrefix === FunctionPrefix::ARG) {
+            $replacement .= '     * @throws \VanCodX\Data\Validation\Exceptions\ArgumentException' . "\n";
+        } else {
+            $replacement .= '     * @throws \VanCodX\Data\Validation\Exceptions\ValueException' . "\n";
+        }
+        $docComment = str_replace('@return bool' . "\n", $replacement, $docComment);
+        $docComment = str_replace('@phpstan-assert-if-true ', '@phpstan-assert ', $docComment);
+        $data = '    ' . $docComment . "\n";
+
+        $data .= '    public static function ' . $functionPrefix->value . ucfirst($sourceMethod->getName());
+        $data .= '(';
+        $parameters = $sourceMethod->getParameters();
+        foreach ($parameters as $parameter) {
+            $type = $parameter->getType();
+            $data .= (($type instanceof ReflectionNamedType) ? $type->getName() : 'unknown')
+                . ' $' . $parameter->getName() . ', ';
+        }
+        $data .= 'string $argName = null): void' . "\n";
+
         $data .= '    {' . "\n";
-        $data .= '        if (!V::' . $sourceMethod->getName() . '($value)) {' . "\n";
+        $data .= '        if (!V::' . $sourceMethod->getName() . '(';
+        $lastParameterIndex = array_key_last($parameters);
+        foreach ($parameters as $parameterIndex => $parameter) {
+            $data .= '$' . $parameter->getName();
+            if ($parameterIndex != $lastParameterIndex) {
+                $data .= ', ';
+            }
+        }
+        $data .= ')) {' . "\n";
 
         if ($functionPrefix === FunctionPrefix::ARG) {
-            $data .= '            throw static::newArgumentException([$name ?: (static::tryGetArgumentName() ?: \'value\') => $value]);' . "\n";
+            $data .= '            throw static::newArgumentException';
         } else {
-            $data .= '            throw static::newValueException([$name ?: (static::tryGetArgumentName() ?: \'value\') => $value]);' . "\n";
+            $data .= '            throw static::newValueException';
         }
+        $data .= '([$argName ?: (static::tryGetArgumentName() ?: \'value\') => $value]);' . "\n";
 
         $data .= '        }' . "\n";
         $data .= '    }' . "\n";
