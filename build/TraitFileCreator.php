@@ -200,8 +200,11 @@ class TraitFileCreator
         }
 
         $data = '<?php declare(strict_types=1);' . "\n\n";
+
+        // "namespace" keyword
         $data .= 'namespace ' . $this->getNamespace() . ';' . "\n\n";
 
+        // sub trait imports ("use" keyword)
         $subTraitFullNames = array_map(
             static fn (self $subCreator): string => $subCreator->getFullName(),
             $subCreators
@@ -217,13 +220,16 @@ class TraitFileCreator
             $data .= "\n";
         }
 
+        // "trait" keyword
         $data .= 'trait ' . $this->getName() . "\n";
         $data .= '{' . "\n";
 
+        // sub trait uses ("use" keyword)
         foreach ($subCreators as $subCreator) {
             $data .= '    use ' . $subCreator->getName() . ';' . "\n";
         }
 
+        // converted methods
         $methods = $this->getMethods();
         $lastMethodIndex = array_key_last($methods);
         foreach ($methods as $methodIndex => $method) {

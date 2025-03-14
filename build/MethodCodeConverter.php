@@ -58,6 +58,7 @@ class MethodCodeConverter
             throw V::newValueException(compact('docComment'));
         }
 
+        // doc comment
         $replacement = '@param string $varName [optional]' . "\n";
         $replacement .= '     * @return void' . "\n";
         if ($functionPrefix === FunctionPrefix::ARG) {
@@ -67,9 +68,13 @@ class MethodCodeConverter
         }
         $docComment = str_replace('@return bool' . "\n", $replacement, $docComment);
         $docComment = str_replace('@phpstan-assert-if-true ', '@phpstan-assert ', $docComment);
+
         $data = '    ' . $docComment . "\n";
 
+        // method name
         $data .= '    public static function ' . $functionPrefix->value . ucfirst($sourceMethod->getName());
+
+        // method parameters
         $data .= '(';
         $parameters = $sourceMethod->getParameters();
         foreach ($parameters as $parameter) {
@@ -80,6 +85,8 @@ class MethodCodeConverter
         $data .= 'string $varName = null): void' . "\n";
 
         $data .= '    {' . "\n";
+
+        // calling the original method
         $data .= '        if (!V::' . $sourceMethod->getName() . '(';
         $lastParameterIndex = array_key_last($parameters);
         foreach ($parameters as $parameterIndex => $parameter) {
@@ -90,6 +97,7 @@ class MethodCodeConverter
         }
         $data .= ')) {' . "\n";
 
+        // throwing an exception
         if ($functionPrefix === FunctionPrefix::ARG) {
             $data .= '            throw static::newArgumentException';
         } else {
