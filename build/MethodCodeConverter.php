@@ -86,7 +86,7 @@ class MethodCodeConverter
 
         $data .= '    {' . "\n";
 
-        // calling the original method
+        // calling the source method
         $data .= '        if (!V::' . $sourceMethod->getName() . '(';
         $lastParameterIndex = array_key_last($parameters);
         foreach ($parameters as $parameterIndex => $parameter) {
