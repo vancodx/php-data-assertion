@@ -9,8 +9,7 @@ use ReflectionMethod;
 use UnexpectedValueException;
 use VanCodX\Data\Validation\Exceptions\ArgumentException;
 use VanCodX\Data\Validation\Exceptions\ValueException;
-use VanCodX\Data\Validation\Traits\ExceptionTrait;
-use VanCodX\Data\Validation\Validation as V;
+use VanCodX\Data\Assertion\Traits\ExceptionTrait;
 use VanCodX\Testing\PHPUnit\MockeryTestCase;
 
 class ExceptionTraitTest extends MockeryTestCase
@@ -140,7 +139,7 @@ class ExceptionTraitTest extends MockeryTestCase
         $expectedLine = __LINE__ - 1;
 
         $this->assertSame((new ReflectionClass(ExceptionTraitObject::class))->getFileName(), $exception->getFile());
-        $this->assertSame(53, $exception->getLine());
+        $this->assertSame(64, $exception->getLine());
 
         $method->invoke(null, $exception);
 

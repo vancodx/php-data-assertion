@@ -50,6 +50,17 @@ class ExceptionTraitObject
      */
     public static function newException(string $message = '', int $code = 0, Throwable $previous = null): Exception
     {
+        return static::newException2($message, $code, $previous);
+    }
+
+    /**
+     * @param string $message [optional]
+     * @param int $code [optional]
+     * @param Throwable|null $previous [optional]
+     * @return Exception
+     */
+    protected static function newException2(string $message = '', int $code = 0, Throwable $previous = null): Exception
+    {
         return new Exception($message, $code, $previous);
     }
 }
