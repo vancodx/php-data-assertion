@@ -7,9 +7,9 @@ use Mockery;
 use ReflectionClass;
 use ReflectionMethod;
 use UnexpectedValueException;
+use VanCodX\Data\Assertion\Traits\ExceptionTrait;
 use VanCodX\Data\Validation\Exceptions\ArgumentException;
 use VanCodX\Data\Validation\Exceptions\ValueException;
-use VanCodX\Data\Assertion\Traits\ExceptionTrait;
 use VanCodX\Testing\PHPUnit\MockeryTestCase;
 
 class ExceptionTraitTest extends MockeryTestCase
