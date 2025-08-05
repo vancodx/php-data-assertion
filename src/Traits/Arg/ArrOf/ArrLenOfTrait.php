@@ -2,7 +2,7 @@
 
 namespace VanCodX\Data\Assertion\Traits\Arg\ArrOf;
 
-use VanCodX\Data\Validation\Validation as V;
+use VanCodX\Data\Assertion\Validation as V;
 
 trait ArrLenOfTrait
 {
