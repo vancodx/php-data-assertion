@@ -210,7 +210,7 @@ class TraitFileCreator
             $subCreators
         );
         if ($this->hasMethods()) {
-            $subTraitFullNames[] = 'VanCodX\Data\Validation\Validation as V';
+            $subTraitFullNames[] = 'VanCodX\Data\Assertion\Validation as V';
         }
         sort($subTraitFullNames);
         foreach ($subTraitFullNames as $subTraitFullName) {

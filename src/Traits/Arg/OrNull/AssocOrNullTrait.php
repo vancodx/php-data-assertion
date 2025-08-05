@@ -2,7 +2,7 @@
 
 namespace VanCodX\Data\Assertion\Traits\Arg\OrNull;
 
-use VanCodX\Data\Validation\Validation as V;
+use VanCodX\Data\Assertion\Validation as V;
 
 trait AssocOrNullTrait
 {
