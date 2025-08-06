@@ -9,8 +9,8 @@ use VanCodX\Data\Assertion\Traits\ExceptionTrait;
 class ExceptionTraitObject
 {
     use ExceptionTrait {
-        newValueException as origNewValueException;
-        newArgumentException as origNewArgumentException;
+        newValueException as protected origNewValueException;
+        newArgumentException as protected origNewArgumentException;
         fixExceptionFileAndLine as public;
     }
 
