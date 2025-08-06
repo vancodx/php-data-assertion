@@ -204,7 +204,7 @@ class TraitFileCreator
         // "namespace" keyword
         $data .= 'namespace ' . $this->getNamespace() . ';' . "\n\n";
 
-        // sub-trait imports ("use" keyword)
+        // sub-trait imports ("use" keywords)
         $subTraitFullNames = array_map(
             static fn (self $subCreator): string => $subCreator->getFullName(),
             $subCreators
@@ -224,7 +224,7 @@ class TraitFileCreator
         $data .= 'trait ' . $this->getName() . "\n";
         $data .= '{' . "\n";
 
-        // sub-trait uses ("use" keyword)
+        // sub-trait uses ("use" keywords)
         foreach ($subCreators as $subCreator) {
             $data .= '    use ' . $subCreator->getName() . ';' . "\n";
         }
