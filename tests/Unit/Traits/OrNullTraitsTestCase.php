@@ -7,6 +7,7 @@ use Mockery;
 use Tests\Support\MockValidation;
 use VanCodX\Data\Assertion\Assertion as A;
 use VanCodX\Data\Validation\Exceptions\ArgumentException;
+use VanCodX\Data\Validation\Exceptions\ValueException;
 use VanCodX\Data\Validation\Validation as V;
 use VanCodX\Testing\PHPUnit\MockeryTestCase;
 
@@ -56,6 +57,56 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
             new ArgumentException('value3'),
             static function () use ($argIsSthOrNullFuncName, $value3): void {
                 A::$argIsSthOrNullFuncName($value3, 'value3');
+            }
+        );
+
+        MockValidation::unsetMock();
+    }
+
+    /**
+     * @param string $name
+     * @return void
+     */
+    protected function checkValIsSthOrNullFunction(string $name): void
+    {
+        if (
+            !preg_match('~^test(Val(Is[[:alpha:]]+OrNull))$~', $name, $match)
+            || !method_exists(A::class, $match[1])
+            || !method_exists(V::class, $match[2])
+        ) {
+            throw new InvalidArgumentException('Argument "name" is invalid.');
+        }
+        $valIsSthOrNullFuncName = lcfirst($match[1]);
+        $isSthOrNullFuncName = lcfirst($match[2]);
+
+        $mock = Mockery::mock(V::class)->makePartial();
+
+        $value1 = 'value-1';
+        $mock->expects($isSthOrNullFuncName)->once()->with($value1)->andReturnTrue();
+
+        $value2 = 'value-2';
+        $mock->expects($isSthOrNullFuncName)->once()->with($value2)->andReturnFalse();
+
+        $value3 = 'value-3';
+        $mock->expects($isSthOrNullFuncName)->once()->with($value3)->andReturnFalse();
+
+        $mock->expects($isSthOrNullFuncName)->never();
+
+        MockValidation::setMock($mock);
+
+        A::$valIsSthOrNullFuncName($value1);
+
+        $this->expectExceptionObjectOnCall(
+            new ValueException('value'),
+            static function () use ($valIsSthOrNullFuncName, $value2): void {
+                A::$valIsSthOrNullFuncName($value2);
+            }
+        );
+
+        $this->expectExceptionObjectOnCall(
+            new ValueException('value3'),
+            static function () use ($valIsSthOrNullFuncName, $value3): void {
+                A::$valIsSthOrNullFuncName($value3, 'value3');
             }
         );
 

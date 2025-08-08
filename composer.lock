@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff5be3ddc26f582e0e9dc5f1bfe55c7f",
+    "content-hash": "786fd6908147aa8163dea6bf5913ca60",
     "packages": [
         {
             "name": "vancodx/php-data-validation",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vancodx/php-data-validation.git",
-                "reference": "d98e6a4e8fe53e36d8c7685949614a4420aba0ca"
+                "reference": "1f28588e0ff664db445b5b22615e0aaa6027e180"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vancodx/php-data-validation/zipball/d98e6a4e8fe53e36d8c7685949614a4420aba0ca",
-                "reference": "d98e6a4e8fe53e36d8c7685949614a4420aba0ca",
+                "url": "https://api.github.com/repos/vancodx/php-data-validation/zipball/1f28588e0ff664db445b5b22615e0aaa6027e180",
+                "reference": "1f28588e0ff664db445b5b22615e0aaa6027e180",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
             "require-dev": {
                 "roave/security-advisories": "dev-latest",
                 "vancodx/php-coding-style": "^1.3.0",
-                "vancodx/php-testing": "^1.6.0"
+                "vancodx/php-testing": "^1.7.0"
             },
             "type": "library",
             "autoload": {
@@ -54,9 +54,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vancodx/php-data-validation/issues",
-                "source": "https://github.com/vancodx/php-data-validation/tree/1.0.1"
+                "source": "https://github.com/vancodx/php-data-validation/tree/1.0.2"
             },
-            "time": "2025-03-08T15:30:20+00:00"
+            "time": "2025-08-08T19:35:46+00:00"
         }
     ],
     "packages-dev": [
@@ -2217,12 +2217,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "90fce983a76dd90a53a5b8171a98421aa703d58d"
+                "reference": "fc5feda437d44655ee5df703bda813e00674b227"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/90fce983a76dd90a53a5b8171a98421aa703d58d",
-                "reference": "90fce983a76dd90a53a5b8171a98421aa703d58d",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fc5feda437d44655ee5df703bda813e00674b227",
+                "reference": "fc5feda437d44655ee5df703bda813e00674b227",
                 "shasum": ""
             },
             "conflict": {
@@ -2351,7 +2351,7 @@
                 "corveda/phpsandbox": "<1.3.5",
                 "cosenary/instagram": "<=2.3",
                 "couleurcitron/tarteaucitron-wp": "<0.3",
-                "craftcms/cms": "<4.15.3|>=5,<5.7.5",
+                "craftcms/cms": "<4.16.3|>=5,<5.8.4",
                 "croogo/croogo": "<4",
                 "cuyz/valinor": "<0.12",
                 "czim/file-handling": "<1.5|>=2,<2.3",
@@ -3171,7 +3171,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-06T18:07:51+00:00"
+            "time": "2025-08-08T20:05:48+00:00"
         },
         {
             "name": "sebastian/cli-parser",
