@@ -26,7 +26,7 @@ class BoolTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isBoolDataProvider')]
-    public function testIsBool(mixed $value, bool $isCorrect): void
+    public function testValIsBool(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsBool($value);
@@ -48,7 +48,7 @@ class BoolTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isTrueDataProvider')]
-    public function testIsTrue(mixed $value, bool $isCorrect): void
+    public function testValIsTrue(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsTrue($value);
@@ -70,7 +70,7 @@ class BoolTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isFalseDataProvider')]
-    public function testIsFalse(mixed $value, bool $isCorrect): void
+    public function testValIsFalse(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsFalse($value);

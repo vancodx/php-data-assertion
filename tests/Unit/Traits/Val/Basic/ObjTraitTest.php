@@ -31,7 +31,7 @@ class ObjTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isObjDataProvider')]
-    public function testIsObj(mixed $value, bool $isCorrect): void
+    public function testValIsObj(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsObj($value);
@@ -55,7 +55,7 @@ class ObjTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isClsDataProvider')]
-    public function testIsCls(mixed $value, bool $isCorrect): void
+    public function testValIsCls(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsCls($value);
@@ -77,7 +77,7 @@ class ObjTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isIfcDataProvider')]
-    public function testIsIfc(mixed $value, bool $isCorrect): void
+    public function testValIsIfc(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsIfc($value);
@@ -100,7 +100,7 @@ class ObjTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isObjOf1DataProvider')]
-    public function testIsObjOf1(mixed $value, bool $isCorrect): void
+    public function testValIsObjOf1(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsObjOf($value, MyArrayObject1::class);
@@ -122,7 +122,7 @@ class ObjTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isObjOf2DataProvider')]
-    public function testIsObjOf2(mixed $value, bool $isCorrect): void
+    public function testValIsObjOf2(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsObjOf($value, MyArrayObject2::class);
@@ -145,7 +145,7 @@ class ObjTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isClsOf1DataProvider')]
-    public function testIsClsOf1(mixed $value, bool $isCorrect): void
+    public function testValIsClsOf1(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsClsOf($value, MyArrayObject1::class);
@@ -167,7 +167,7 @@ class ObjTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isClsOf2DataProvider')]
-    public function testIsClsOf2(mixed $value, bool $isCorrect): void
+    public function testValIsClsOf2(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsClsOf($value, MyArrayObject2::class);

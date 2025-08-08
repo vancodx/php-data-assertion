@@ -29,7 +29,7 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isAssocDataProvider')]
-    public function testIsAssoc(mixed $value, bool $isCorrect): void
+    public function testValIsAssoc(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsAssoc($value);
@@ -54,7 +54,7 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isAssocLenDataProvider')]
-    public function testIsAssocLen(mixed $value, bool $isCorrect): void
+    public function testValIsAssocLen(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsAssocLen($value);
@@ -76,7 +76,7 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isEmptyAssocDataProvider')]
-    public function testIsEmptyAssoc(mixed $value, bool $isCorrect): void
+    public function testValIsEmptyAssoc(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsEmptyAssoc($value);
@@ -98,7 +98,7 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isAssocSoloDataProvider')]
-    public function testIsAssocSolo(mixed $value, bool $isCorrect): void
+    public function testValIsAssocSolo(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsAssocSolo($value);
@@ -120,7 +120,7 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isAssocDuoDataProvider')]
-    public function testIsAssocDuo(mixed $value, bool $isCorrect): void
+    public function testValIsAssocDuo(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsAssocDuo($value);
@@ -142,7 +142,7 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isAssocTrioDataProvider')]
-    public function testIsAssocTrio(mixed $value, bool $isCorrect): void
+    public function testValIsAssocTrio(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsAssocTrio($value);
@@ -164,7 +164,7 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isAssocQuadDataProvider')]
-    public function testIsAssocQuad(mixed $value, bool $isCorrect): void
+    public function testValIsAssocQuad(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsAssocQuad($value);

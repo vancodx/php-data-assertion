@@ -25,7 +25,7 @@ class MiscTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isNullDataProvider')]
-    public function testIsNull(mixed $value, bool $isCorrect): void
+    public function testArgIsNull(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsNull($value);
@@ -47,7 +47,7 @@ class MiscTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isResDataProvider')]
-    public function testIsRes(mixed $value, bool $isCorrect): void
+    public function testArgIsRes(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsRes($value);

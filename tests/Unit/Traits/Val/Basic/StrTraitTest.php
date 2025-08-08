@@ -41,7 +41,7 @@ class StrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isStrDataProvider')]
-    public function testIsStr(mixed $value, bool $isCorrect): void
+    public function testValIsStr(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsStr($value);
@@ -74,7 +74,7 @@ class StrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isStrLenDataProvider')]
-    public function testIsStrLen(mixed $value, bool $isCorrect): void
+    public function testValIsStrLen(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsStrLen($value);
@@ -96,7 +96,7 @@ class StrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isEmptyStrDataProvider')]
-    public function testIsEmptyStr(mixed $value, bool $isCorrect): void
+    public function testValIsEmptyStr(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsEmptyStr($value);

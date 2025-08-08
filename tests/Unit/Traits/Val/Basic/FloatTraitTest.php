@@ -29,7 +29,7 @@ class FloatTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isFloatDataProvider')]
-    public function testIsFloat(mixed $value, bool $isCorrect): void
+    public function testValIsFloat(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsFloat($value);
@@ -53,7 +53,7 @@ class FloatTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isUFloatDataProvider')]
-    public function testIsUFloat(mixed $value, bool $isCorrect): void
+    public function testValIsUFloat(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsUFloat($value);
@@ -76,7 +76,7 @@ class FloatTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isPosFloatDataProvider')]
-    public function testIsPosFloat(mixed $value, bool $isCorrect): void
+    public function testValIsPosFloat(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsPosFloat($value);
@@ -99,7 +99,7 @@ class FloatTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isNegFloatDataProvider')]
-    public function testIsNegFloat(mixed $value, bool $isCorrect): void
+    public function testValIsNegFloat(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsNegFloat($value);

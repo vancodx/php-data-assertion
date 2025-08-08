@@ -34,7 +34,7 @@ class NumTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isNumDataProvider')]
-    public function testIsNum(mixed $value, bool $isCorrect): void
+    public function testValIsNum(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsNum($value);
@@ -61,7 +61,7 @@ class NumTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isUNumDataProvider')]
-    public function testIsUNum(mixed $value, bool $isCorrect): void
+    public function testValIsUNum(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsUNum($value);
@@ -86,7 +86,7 @@ class NumTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isPosNumDataProvider')]
-    public function testIsPosNum(mixed $value, bool $isCorrect): void
+    public function testValIsPosNum(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsPosNum($value);
@@ -111,7 +111,7 @@ class NumTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isNegNumDataProvider')]
-    public function testIsNegNum(mixed $value, bool $isCorrect): void
+    public function testValIsNegNum(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
         A::valIsNegNum($value);

@@ -34,7 +34,7 @@ class ArrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isArrDataProvider')]
-    public function testIsArr(mixed $value, bool $isCorrect): void
+    public function testArgIsArr(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsArr($value);
@@ -64,7 +64,7 @@ class ArrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isArrLenDataProvider')]
-    public function testIsArrLen(mixed $value, bool $isCorrect): void
+    public function testArgIsArrLen(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsArrLen($value);
@@ -86,7 +86,7 @@ class ArrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isEmptyArrDataProvider')]
-    public function testIsEmptyArr(mixed $value, bool $isCorrect): void
+    public function testArgIsEmptyArr(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsEmptyArr($value);
@@ -110,7 +110,7 @@ class ArrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isArrSoloDataProvider')]
-    public function testIsArrSolo(mixed $value, bool $isCorrect): void
+    public function testArgIsArrSolo(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsArrSolo($value);
@@ -133,7 +133,7 @@ class ArrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isArrDuoDataProvider')]
-    public function testIsArrDuo(mixed $value, bool $isCorrect): void
+    public function testArgIsArrDuo(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsArrDuo($value);
@@ -156,7 +156,7 @@ class ArrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isArrTrioDataProvider')]
-    public function testIsArrTrio(mixed $value, bool $isCorrect): void
+    public function testArgIsArrTrio(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsArrTrio($value);
@@ -179,7 +179,7 @@ class ArrTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isArrQuadDataProvider')]
-    public function testIsArrQuad(mixed $value, bool $isCorrect): void
+    public function testArgIsArrQuad(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsArrQuad($value);
