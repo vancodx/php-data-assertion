@@ -35,7 +35,7 @@ class ObjOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsObjOfOrNull(): void
     {
-        // $this->checkArgIsSthOfOrNullFunction(__FUNCTION__);
+        $this->checkValIsSthOfOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -43,6 +43,6 @@ class ObjOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsClsOfOrNull(): void
     {
-        // $this->checkArgIsSthOfOrNullFunction(__FUNCTION__);
+        $this->checkValIsSthOfOrNullFunction(__FUNCTION__);
     }
 }
