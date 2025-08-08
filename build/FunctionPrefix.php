@@ -5,5 +5,5 @@ namespace Build;
 enum FunctionPrefix: string
 {
     case ARG = 'arg';
-    case VALUE = 'value';
+    case VAL = 'val';
 }

@@ -29,7 +29,7 @@ class IntTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isIntDataProvider')]
-    public function testIsInt(mixed $value, bool $isCorrect): void
+    public function testArgIsInt(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsInt($value);
@@ -53,7 +53,7 @@ class IntTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isUIntDataProvider')]
-    public function testIsUInt(mixed $value, bool $isCorrect): void
+    public function testArgIsUInt(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsUInt($value);
@@ -76,7 +76,7 @@ class IntTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isPosIntDataProvider')]
-    public function testIsPosInt(mixed $value, bool $isCorrect): void
+    public function testArgIsPosInt(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsPosInt($value);
@@ -99,7 +99,7 @@ class IntTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isNegIntDataProvider')]
-    public function testIsNegInt(mixed $value, bool $isCorrect): void
+    public function testArgIsNegInt(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsNegInt($value);
@@ -122,7 +122,7 @@ class IntTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isIntIdDataProvider')]
-    public function testIsIntId(mixed $value, bool $isCorrect): void
+    public function testArgIsIntId(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsIntId($value);

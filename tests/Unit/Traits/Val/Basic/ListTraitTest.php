@@ -1,0 +1,175 @@
+<?php declare(strict_types=1);
+
+namespace Tests\Unit\Traits\Val\Basic;
+
+use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\Unit\Traits\BasicTraitsTestCase;
+use VanCodX\Data\Assertion\Assertion as A;
+use VanCodX\Data\Validation\Exceptions\ValueException;
+
+class ListTraitTest extends BasicTraitsTestCase
+{
+    /**
+     * @return list<array{0: mixed, 1: bool}>
+     */
+    public static function isListDataProvider(): array
+    {
+        return static::buildDataSet([
+            [null],
+            [true, false],
+            [0.0, 1.0, -1.0],
+            [null, false, -1.0, ['empty-string' => '']],
+            [''],
+            []
+        ]);
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $isCorrect
+     * @return void
+     */
+    #[DataProvider('isListDataProvider')]
+    public function testValIsList(mixed $value, bool $isCorrect): void
+    {
+        $this->expectExceptionIfNot($isCorrect, ValueException::class);
+        A::valIsList($value);
+    }
+
+    /**
+     * @return list<array{0: mixed, 1: bool}>
+     */
+    public static function isListLenDataProvider(): array
+    {
+        return static::buildDataSet([
+            [null],
+            [true, false],
+            [0.0, 1.0, -1.0],
+            [null, false, -1.0, ['empty-string' => '']],
+            ['']
+        ]);
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $isCorrect
+     * @return void
+     */
+    #[DataProvider('isListLenDataProvider')]
+    public function testValIsListLen(mixed $value, bool $isCorrect): void
+    {
+        $this->expectExceptionIfNot($isCorrect, ValueException::class);
+        A::valIsListLen($value);
+    }
+
+    /**
+     * @return list<array{0: mixed, 1: bool}>
+     */
+    public static function isEmptyListDataProvider(): array
+    {
+        return static::buildDataSet([
+            []
+        ]);
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $isCorrect
+     * @return void
+     */
+    #[DataProvider('isEmptyListDataProvider')]
+    public function testValIsEmptyList(mixed $value, bool $isCorrect): void
+    {
+        $this->expectExceptionIfNot($isCorrect, ValueException::class);
+        A::valIsEmptyList($value);
+    }
+
+    /**
+     * @return list<array{0: mixed, 1: bool}>
+     */
+    public static function isListSoloDataProvider(): array
+    {
+        return static::buildDataSet([
+            [null],
+            ['']
+        ]);
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $isCorrect
+     * @return void
+     */
+    #[DataProvider('isListSoloDataProvider')]
+    public function testValIsListSolo(mixed $value, bool $isCorrect): void
+    {
+        $this->expectExceptionIfNot($isCorrect, ValueException::class);
+        A::valIsListSolo($value);
+    }
+
+    /**
+     * @return list<array{0: mixed, 1: bool}>
+     */
+    public static function isListDuoDataProvider(): array
+    {
+        return static::buildDataSet([
+            [true, false]
+        ]);
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $isCorrect
+     * @return void
+     */
+    #[DataProvider('isListDuoDataProvider')]
+    public function testValIsListDuo(mixed $value, bool $isCorrect): void
+    {
+        $this->expectExceptionIfNot($isCorrect, ValueException::class);
+        A::valIsListDuo($value);
+    }
+
+    /**
+     * @return list<array{0: mixed, 1: bool}>
+     */
+    public static function isListTrioDataProvider(): array
+    {
+        return static::buildDataSet([
+            [0.0, 1.0, -1.0]
+        ]);
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $isCorrect
+     * @return void
+     */
+    #[DataProvider('isListTrioDataProvider')]
+    public function testValIsListTrio(mixed $value, bool $isCorrect): void
+    {
+        $this->expectExceptionIfNot($isCorrect, ValueException::class);
+        A::valIsListTrio($value);
+    }
+
+    /**
+     * @return list<array{0: mixed, 1: bool}>
+     */
+    public static function isListQuadDataProvider(): array
+    {
+        return static::buildDataSet([
+            [null, false, -1.0, ['empty-string' => '']]
+        ]);
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $isCorrect
+     * @return void
+     */
+    #[DataProvider('isListQuadDataProvider')]
+    public function testValIsListQuad(mixed $value, bool $isCorrect): void
+    {
+        $this->expectExceptionIfNot($isCorrect, ValueException::class);
+        A::valIsListQuad($value);
+    }
+}

@@ -22,7 +22,7 @@ class BuildCommand extends Command
         $basePath = dirname(__DIR__) . '/src';
         $sourceClass = new ReflectionClass(V::class);
         (new TraitFileCreator($basePath, $sourceClass, FunctionPrefix::ARG))->create();
-        (new TraitFileCreator($basePath, $sourceClass, FunctionPrefix::VALUE))->create();
+        (new TraitFileCreator($basePath, $sourceClass, FunctionPrefix::VAL))->create();
         return Command::SUCCESS;
     }
 }

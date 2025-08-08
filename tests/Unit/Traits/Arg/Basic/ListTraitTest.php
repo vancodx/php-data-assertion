@@ -30,7 +30,7 @@ class ListTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isListDataProvider')]
-    public function testIsList(mixed $value, bool $isCorrect): void
+    public function testArgIsList(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsList($value);
@@ -56,7 +56,7 @@ class ListTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isListLenDataProvider')]
-    public function testIsListLen(mixed $value, bool $isCorrect): void
+    public function testArgIsListLen(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsListLen($value);
@@ -78,7 +78,7 @@ class ListTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isEmptyListDataProvider')]
-    public function testIsEmptyList(mixed $value, bool $isCorrect): void
+    public function testArgIsEmptyList(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsEmptyList($value);
@@ -101,7 +101,7 @@ class ListTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isListSoloDataProvider')]
-    public function testIsListSolo(mixed $value, bool $isCorrect): void
+    public function testArgIsListSolo(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsListSolo($value);
@@ -123,7 +123,7 @@ class ListTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isListDuoDataProvider')]
-    public function testIsListDuo(mixed $value, bool $isCorrect): void
+    public function testArgIsListDuo(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsListDuo($value);
@@ -145,7 +145,7 @@ class ListTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isListTrioDataProvider')]
-    public function testIsListTrio(mixed $value, bool $isCorrect): void
+    public function testArgIsListTrio(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsListTrio($value);
@@ -167,7 +167,7 @@ class ListTraitTest extends BasicTraitsTestCase
      * @return void
      */
     #[DataProvider('isListQuadDataProvider')]
-    public function testIsListQuad(mixed $value, bool $isCorrect): void
+    public function testArgIsListQuad(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ArgumentException::class);
         A::argIsListQuad($value);
