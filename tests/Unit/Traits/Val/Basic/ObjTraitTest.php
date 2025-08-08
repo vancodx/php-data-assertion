@@ -1,26 +1,27 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Unit\Traits\Value\Basic;
+namespace Tests\Unit\Traits\Val\Basic;
 
+use ArrayAccess;
+use ArrayObject;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\Unit\Samples\MyArrayObject1;
+use Tests\Unit\Samples\MyArrayObject2;
 use Tests\Unit\Traits\BasicTraitsTestCase;
 use VanCodX\Data\Assertion\Assertion as A;
 use VanCodX\Data\Validation\Exceptions\ValueException;
 
-class ListTraitTest extends BasicTraitsTestCase
+class ObjTraitTest extends BasicTraitsTestCase
 {
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isListDataProvider(): array
+    public static function isObjDataProvider(): array
     {
         return static::buildDataSet([
-            [null],
-            [true, false],
-            [0.0, 1.0, -1.0],
-            [null, false, -1.0, ['empty-string' => '']],
-            [''],
-            []
+            static::getArrayObjectInstance(),
+            static::getMyArrayObject1Instance(),
+            static::getMyArrayObject2Instance()
         ]);
     }
 
@@ -29,24 +30,22 @@ class ListTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isListDataProvider')]
-    public function testIsList(mixed $value, bool $isCorrect): void
+    #[DataProvider('isObjDataProvider')]
+    public function testIsObj(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsList($value);
+        A::valIsObj($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isListLenDataProvider(): array
+    public static function isClsDataProvider(): array
     {
         return static::buildDataSet([
-            [null],
-            [true, false],
-            [0.0, 1.0, -1.0],
-            [null, false, -1.0, ['empty-string' => '']],
-            ['']
+            ArrayObject::class,
+            MyArrayObject1::class,
+            MyArrayObject2::class
         ]);
     }
 
@@ -55,20 +54,20 @@ class ListTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isListLenDataProvider')]
-    public function testIsListLen(mixed $value, bool $isCorrect): void
+    #[DataProvider('isClsDataProvider')]
+    public function testIsCls(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsListLen($value);
+        A::valIsCls($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isEmptyListDataProvider(): array
+    public static function isIfcDataProvider(): array
     {
         return static::buildDataSet([
-            []
+            ArrayAccess::class
         ]);
     }
 
@@ -77,21 +76,21 @@ class ListTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isEmptyListDataProvider')]
-    public function testIsEmptyList(mixed $value, bool $isCorrect): void
+    #[DataProvider('isIfcDataProvider')]
+    public function testIsIfc(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsEmptyList($value);
+        A::valIsIfc($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isListSoloDataProvider(): array
+    public static function isObjOf1DataProvider(): array
     {
         return static::buildDataSet([
-            [null],
-            ['']
+            static::getMyArrayObject1Instance(),
+            static::getMyArrayObject2Instance()
         ]);
     }
 
@@ -100,20 +99,20 @@ class ListTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isListSoloDataProvider')]
-    public function testIsListSolo(mixed $value, bool $isCorrect): void
+    #[DataProvider('isObjOf1DataProvider')]
+    public function testIsObjOf1(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsListSolo($value);
+        A::valIsObjOf($value, MyArrayObject1::class);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isListDuoDataProvider(): array
+    public static function isObjOf2DataProvider(): array
     {
         return static::buildDataSet([
-            [true, false]
+            static::getMyArrayObject2Instance()
         ]);
     }
 
@@ -122,20 +121,21 @@ class ListTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isListDuoDataProvider')]
-    public function testIsListDuo(mixed $value, bool $isCorrect): void
+    #[DataProvider('isObjOf2DataProvider')]
+    public function testIsObjOf2(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsListDuo($value);
+        A::valIsObjOf($value, MyArrayObject2::class);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isListTrioDataProvider(): array
+    public static function isClsOf1DataProvider(): array
     {
         return static::buildDataSet([
-            [0.0, 1.0, -1.0]
+            MyArrayObject1::class,
+            MyArrayObject2::class
         ]);
     }
 
@@ -144,20 +144,20 @@ class ListTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isListTrioDataProvider')]
-    public function testIsListTrio(mixed $value, bool $isCorrect): void
+    #[DataProvider('isClsOf1DataProvider')]
+    public function testIsClsOf1(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsListTrio($value);
+        A::valIsClsOf($value, MyArrayObject1::class);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isListQuadDataProvider(): array
+    public static function isClsOf2DataProvider(): array
     {
         return static::buildDataSet([
-            [null, false, -1.0, ['empty-string' => '']]
+            MyArrayObject2::class
         ]);
     }
 
@@ -166,10 +166,10 @@ class ListTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isListQuadDataProvider')]
-    public function testIsListQuad(mixed $value, bool $isCorrect): void
+    #[DataProvider('isClsOf2DataProvider')]
+    public function testIsClsOf2(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsListQuad($value);
+        A::valIsClsOf($value, MyArrayObject2::class);
     }
 }

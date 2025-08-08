@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Unit\Traits\Value\Basic;
+namespace Tests\Unit\Traits\Val\Basic;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Unit\Traits\BasicTraitsTestCase;
@@ -29,7 +29,7 @@ class BoolTraitTest extends BasicTraitsTestCase
     public function testIsBool(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsBool($value);
+        A::valIsBool($value);
     }
 
     /**
@@ -51,7 +51,7 @@ class BoolTraitTest extends BasicTraitsTestCase
     public function testIsTrue(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsTrue($value);
+        A::valIsTrue($value);
     }
 
     /**
@@ -73,6 +73,6 @@ class BoolTraitTest extends BasicTraitsTestCase
     public function testIsFalse(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsFalse($value);
+        A::valIsFalse($value);
     }
 }

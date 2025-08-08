@@ -1,25 +1,20 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Unit\Traits\Value\Basic;
+namespace Tests\Unit\Traits\Val\Basic;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Unit\Traits\BasicTraitsTestCase;
 use VanCodX\Data\Assertion\Assertion as A;
 use VanCodX\Data\Validation\Exceptions\ValueException;
 
-class NumTraitTest extends BasicTraitsTestCase
+class FloatTraitTest extends BasicTraitsTestCase
 {
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isNumDataProvider(): array
+    public static function isFloatDataProvider(): array
     {
         return static::buildDataSet([
-            0,
-            1,
-            1000000,
-            -1,
-            -1000000,
             0.0,
             1.0,
             1000000.1,
@@ -33,22 +28,19 @@ class NumTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isNumDataProvider')]
-    public function testIsNum(mixed $value, bool $isCorrect): void
+    #[DataProvider('isFloatDataProvider')]
+    public function testIsFloat(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsNum($value);
+        A::valIsFloat($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isUNumDataProvider(): array
+    public static function isUFloatDataProvider(): array
     {
         return static::buildDataSet([
-            0,
-            1,
-            1000000,
             0.0,
             1.0,
             1000000.1
@@ -60,21 +52,19 @@ class NumTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isUNumDataProvider')]
-    public function testIsUNum(mixed $value, bool $isCorrect): void
+    #[DataProvider('isUFloatDataProvider')]
+    public function testIsUFloat(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsUNum($value);
+        A::valIsUFloat($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isPosNumDataProvider(): array
+    public static function isPosFloatDataProvider(): array
     {
         return static::buildDataSet([
-            1,
-            1000000,
             1.0,
             1000000.1
         ]);
@@ -85,21 +75,19 @@ class NumTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isPosNumDataProvider')]
-    public function testIsPosNum(mixed $value, bool $isCorrect): void
+    #[DataProvider('isPosFloatDataProvider')]
+    public function testIsPosFloat(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsPosNum($value);
+        A::valIsPosFloat($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isNegNumDataProvider(): array
+    public static function isNegFloatDataProvider(): array
     {
         return static::buildDataSet([
-            -1,
-            -1000000,
             -1.0,
             -1000000.1
         ]);
@@ -110,10 +98,10 @@ class NumTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isNegNumDataProvider')]
-    public function testIsNegNum(mixed $value, bool $isCorrect): void
+    #[DataProvider('isNegFloatDataProvider')]
+    public function testIsNegFloat(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsNegNum($value);
+        A::valIsNegFloat($value);
     }
 }

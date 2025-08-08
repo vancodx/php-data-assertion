@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Unit\Traits\Value\Basic;
+namespace Tests\Unit\Traits\Val\Basic;
 
 use ArrayAccess;
 use ArrayObject;
@@ -44,7 +44,7 @@ class StrTraitTest extends BasicTraitsTestCase
     public function testIsStr(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsStr($value);
+        A::valIsStr($value);
     }
 
     /**
@@ -77,7 +77,7 @@ class StrTraitTest extends BasicTraitsTestCase
     public function testIsStrLen(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsStrLen($value);
+        A::valIsStrLen($value);
     }
 
     /**
@@ -99,6 +99,6 @@ class StrTraitTest extends BasicTraitsTestCase
     public function testIsEmptyStr(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsEmptyStr($value);
+        A::valIsEmptyStr($value);
     }
 }

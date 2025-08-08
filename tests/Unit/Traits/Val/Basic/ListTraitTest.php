@@ -1,24 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Unit\Traits\Value\Basic;
+namespace Tests\Unit\Traits\Val\Basic;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Unit\Traits\BasicTraitsTestCase;
 use VanCodX\Data\Assertion\Assertion as A;
 use VanCodX\Data\Validation\Exceptions\ValueException;
 
-class AssocTraitTest extends BasicTraitsTestCase
+class ListTraitTest extends BasicTraitsTestCase
 {
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isAssocDataProvider(): array
+    public static function isListDataProvider(): array
     {
         return static::buildDataSet([
-            ['STDOUT' => STDOUT],
-            ['a' => 0, 'b' => 1],
-            ['x' => '0.0', 'y' => '1.0', 'z' => '-1.0'],
-            ['STDOUT' => STDOUT, 'b' => 1, 'z' => '-1.0', 'empty-array' => []],
+            [null],
+            [true, false],
+            [0.0, 1.0, -1.0],
+            [null, false, -1.0, ['empty-string' => '']],
+            [''],
             []
         ]);
     }
@@ -28,23 +29,24 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isAssocDataProvider')]
-    public function testIsAssoc(mixed $value, bool $isCorrect): void
+    #[DataProvider('isListDataProvider')]
+    public function testIsList(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsAssoc($value);
+        A::valIsList($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isAssocLenDataProvider(): array
+    public static function isListLenDataProvider(): array
     {
         return static::buildDataSet([
-            ['STDOUT' => STDOUT],
-            ['a' => 0, 'b' => 1],
-            ['x' => '0.0', 'y' => '1.0', 'z' => '-1.0'],
-            ['STDOUT' => STDOUT, 'b' => 1, 'z' => '-1.0', 'empty-array' => []]
+            [null],
+            [true, false],
+            [0.0, 1.0, -1.0],
+            [null, false, -1.0, ['empty-string' => '']],
+            ['']
         ]);
     }
 
@@ -53,17 +55,17 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isAssocLenDataProvider')]
-    public function testIsAssocLen(mixed $value, bool $isCorrect): void
+    #[DataProvider('isListLenDataProvider')]
+    public function testIsListLen(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsAssocLen($value);
+        A::valIsListLen($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isEmptyAssocDataProvider(): array
+    public static function isEmptyListDataProvider(): array
     {
         return static::buildDataSet([
             []
@@ -75,20 +77,21 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isEmptyAssocDataProvider')]
-    public function testIsEmptyAssoc(mixed $value, bool $isCorrect): void
+    #[DataProvider('isEmptyListDataProvider')]
+    public function testIsEmptyList(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsEmptyAssoc($value);
+        A::valIsEmptyList($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isAssocSoloDataProvider(): array
+    public static function isListSoloDataProvider(): array
     {
         return static::buildDataSet([
-            ['STDOUT' => STDOUT]
+            [null],
+            ['']
         ]);
     }
 
@@ -97,20 +100,20 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isAssocSoloDataProvider')]
-    public function testIsAssocSolo(mixed $value, bool $isCorrect): void
+    #[DataProvider('isListSoloDataProvider')]
+    public function testIsListSolo(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsAssocSolo($value);
+        A::valIsListSolo($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isAssocDuoDataProvider(): array
+    public static function isListDuoDataProvider(): array
     {
         return static::buildDataSet([
-            ['a' => 0, 'b' => 1]
+            [true, false]
         ]);
     }
 
@@ -119,20 +122,20 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isAssocDuoDataProvider')]
-    public function testIsAssocDuo(mixed $value, bool $isCorrect): void
+    #[DataProvider('isListDuoDataProvider')]
+    public function testIsListDuo(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsAssocDuo($value);
+        A::valIsListDuo($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isAssocTrioDataProvider(): array
+    public static function isListTrioDataProvider(): array
     {
         return static::buildDataSet([
-            ['x' => '0.0', 'y' => '1.0', 'z' => '-1.0']
+            [0.0, 1.0, -1.0]
         ]);
     }
 
@@ -141,20 +144,20 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isAssocTrioDataProvider')]
-    public function testIsAssocTrio(mixed $value, bool $isCorrect): void
+    #[DataProvider('isListTrioDataProvider')]
+    public function testIsListTrio(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsAssocTrio($value);
+        A::valIsListTrio($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isAssocQuadDataProvider(): array
+    public static function isListQuadDataProvider(): array
     {
         return static::buildDataSet([
-            ['STDOUT' => STDOUT, 'b' => 1, 'z' => '-1.0', 'empty-array' => []]
+            [null, false, -1.0, ['empty-string' => '']]
         ]);
     }
 
@@ -163,10 +166,10 @@ class AssocTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isAssocQuadDataProvider')]
-    public function testIsAssocQuad(mixed $value, bool $isCorrect): void
+    #[DataProvider('isListQuadDataProvider')]
+    public function testIsListQuad(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsAssocQuad($value);
+        A::valIsListQuad($value);
     }
 }

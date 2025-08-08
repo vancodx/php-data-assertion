@@ -1,25 +1,30 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Unit\Traits\Value\Basic;
+namespace Tests\Unit\Traits\Val\Basic;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Unit\Traits\BasicTraitsTestCase;
 use VanCodX\Data\Assertion\Assertion as A;
 use VanCodX\Data\Validation\Exceptions\ValueException;
 
-class IntTraitTest extends BasicTraitsTestCase
+class NumTraitTest extends BasicTraitsTestCase
 {
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isIntDataProvider(): array
+    public static function isNumDataProvider(): array
     {
         return static::buildDataSet([
             0,
             1,
             1000000,
             -1,
-            -1000000
+            -1000000,
+            0.0,
+            1.0,
+            1000000.1,
+            -1.0,
+            -1000000.1
         ]);
     }
 
@@ -28,22 +33,25 @@ class IntTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isIntDataProvider')]
-    public function testIsInt(mixed $value, bool $isCorrect): void
+    #[DataProvider('isNumDataProvider')]
+    public function testIsNum(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsInt($value);
+        A::valIsNum($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isUIntDataProvider(): array
+    public static function isUNumDataProvider(): array
     {
         return static::buildDataSet([
             0,
             1,
-            1000000
+            1000000,
+            0.0,
+            1.0,
+            1000000.1
         ]);
     }
 
@@ -52,21 +60,23 @@ class IntTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isUIntDataProvider')]
-    public function testIsUInt(mixed $value, bool $isCorrect): void
+    #[DataProvider('isUNumDataProvider')]
+    public function testIsUNum(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsUInt($value);
+        A::valIsUNum($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isPosIntDataProvider(): array
+    public static function isPosNumDataProvider(): array
     {
         return static::buildDataSet([
             1,
-            1000000
+            1000000,
+            1.0,
+            1000000.1
         ]);
     }
 
@@ -75,21 +85,23 @@ class IntTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isPosIntDataProvider')]
-    public function testIsPosInt(mixed $value, bool $isCorrect): void
+    #[DataProvider('isPosNumDataProvider')]
+    public function testIsPosNum(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsPosInt($value);
+        A::valIsPosNum($value);
     }
 
     /**
      * @return list<array{0: mixed, 1: bool}>
      */
-    public static function isNegIntDataProvider(): array
+    public static function isNegNumDataProvider(): array
     {
         return static::buildDataSet([
             -1,
-            -1000000
+            -1000000,
+            -1.0,
+            -1000000.1
         ]);
     }
 
@@ -98,33 +110,10 @@ class IntTraitTest extends BasicTraitsTestCase
      * @param bool $isCorrect
      * @return void
      */
-    #[DataProvider('isNegIntDataProvider')]
-    public function testIsNegInt(mixed $value, bool $isCorrect): void
+    #[DataProvider('isNegNumDataProvider')]
+    public function testIsNegNum(mixed $value, bool $isCorrect): void
     {
         $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsNegInt($value);
-    }
-
-    /**
-     * @return list<array{0: mixed, 1: bool}>
-     */
-    public static function isIntIdDataProvider(): array
-    {
-        return static::buildDataSet([
-            1,
-            1000000
-        ]);
-    }
-
-    /**
-     * @param mixed $value
-     * @param bool $isCorrect
-     * @return void
-     */
-    #[DataProvider('isIntIdDataProvider')]
-    public function testIsIntId(mixed $value, bool $isCorrect): void
-    {
-        $this->expectExceptionIfNot($isCorrect, ValueException::class);
-        A::valueIsIntId($value);
+        A::valIsNegNum($value);
     }
 }
