@@ -31,6 +31,7 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
         $exceptionClass = ($match[2] === 'Arg') ? ArgumentException::class : ValueException::class;
 
         $mockA = Mockery::mock(A::class)->makePartial();
+        $mockA->shouldAllowMockingProtectedMethods();
 
         $mockV = Mockery::mock(V::class)->makePartial();
 
@@ -39,18 +40,20 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
 
         $value2 = 'value-2';
         $mockV->expects($isSthOrNullFuncName)->once()->with($value2)->andReturnFalse();
+        $mockA->expects('tryGetVariableName')->once()->withNoArgs()->andReturn('value2');
 
         $value3 = 'value-3';
         $mockV->expects($isSthOrNullFuncName)->once()->with($value3)->andReturnFalse();
 
         $mockV->expects($isSthOrNullFuncName)->never();
+        $mockA->expects('tryGetVariableName')->never();
 
         MockValidation::setMock($mockV);
 
         $mockA::$argOrValIsSthOrNullFuncName($value1);
 
         $this->expectExceptionObjectOnCall(
-            new $exceptionClass('value'),
+            new $exceptionClass('value2'),
             static function () use ($mockA, $argOrValIsSthOrNullFuncName, $value2): void {
                 $mockA::$argOrValIsSthOrNullFuncName($value2);
             }
@@ -84,6 +87,7 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
         $exceptionClass = ($match[2] === 'Arg') ? ArgumentException::class : ValueException::class;
 
         $mockA = Mockery::mock(A::class)->makePartial();
+        $mockA->shouldAllowMockingProtectedMethods();
 
         $mockV = Mockery::mock(V::class)->makePartial();
 
@@ -94,19 +98,21 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
         $value2 = 'value-2';
         $arg2 = 'arg-2';
         $mockV->expects($isSthOfOrNullFuncName)->once()->with($value2, $arg2)->andReturnFalse();
+        $mockA->expects('tryGetVariableName')->once()->withNoArgs()->andReturn('value2');
 
         $value3 = 'value-3';
         $arg3 = 'arg-3';
         $mockV->expects($isSthOfOrNullFuncName)->once()->with($value3, $arg3)->andReturnFalse();
 
         $mockV->expects($isSthOfOrNullFuncName)->never();
+        $mockA->expects('tryGetVariableName')->never();
 
         MockValidation::setMock($mockV);
 
         $mockA::$argOrValIsSthOfOrNullFuncName($value1, $arg1);
 
         $this->expectExceptionObjectOnCall(
-            new $exceptionClass('value'),
+            new $exceptionClass('value2'),
             static function () use ($mockA, $argOrValIsSthOfOrNullFuncName, $value2, $arg2): void {
                 $mockA::$argOrValIsSthOfOrNullFuncName($value2, $arg2);
             }
