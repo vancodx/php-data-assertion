@@ -11,7 +11,7 @@ class ObjOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testArgIsObjOrNull(): void
     {
-        $this->checkArgIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -19,7 +19,7 @@ class ObjOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testArgIsClsOrNull(): void
     {
-        $this->checkArgIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -27,7 +27,7 @@ class ObjOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testArgIsIfcOrNull(): void
     {
-        $this->checkArgIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -35,7 +35,7 @@ class ObjOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testArgIsObjOfOrNull(): void
     {
-        $this->checkArgIsSthOfOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOfOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -43,6 +43,6 @@ class ObjOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testArgIsClsOfOrNull(): void
     {
-        $this->checkArgIsSthOfOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOfOrNullFunction(__FUNCTION__);
     }
 }

@@ -17,17 +17,18 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
      * @param string $name
      * @return void
      */
-    protected function checkArgIsSthOrNullFunction(string $name): void
+    protected function checkArgOrValIsSthOrNullFunction(string $name): void
     {
         if (
-            !preg_match('~^test(Arg(Is[[:alpha:]]+OrNull))$~', $name, $match)
+            !preg_match('~^test((Arg|Val)(Is[[:alpha:]]+OrNull))$~', $name, $match)
             || !method_exists(A::class, $match[1])
-            || !method_exists(V::class, $match[2])
+            || !method_exists(V::class, $match[3])
         ) {
             throw new InvalidArgumentException('Argument "name" is invalid.');
         }
-        $argIsSthOrNullFuncName = lcfirst($match[1]);
-        $isSthOrNullFuncName = lcfirst($match[2]);
+        $argOrValIsSthOrNullFuncName = lcfirst($match[1]);
+        $isSthOrNullFuncName = lcfirst($match[3]);
+        $exceptionClass = ($match[2] === 'Arg') ? ArgumentException::class : ValueException::class;
 
         $mock = Mockery::mock(V::class)->makePartial();
 
@@ -44,19 +45,19 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
 
         MockValidation::setMock($mock);
 
-        A::$argIsSthOrNullFuncName($value1);
+        A::$argOrValIsSthOrNullFuncName($value1);
 
         $this->expectExceptionObjectOnCall(
-            new ArgumentException('value'),
-            static function () use ($argIsSthOrNullFuncName, $value2): void {
-                A::$argIsSthOrNullFuncName($value2);
+            new $exceptionClass('value'),
+            static function () use ($argOrValIsSthOrNullFuncName, $value2): void {
+                A::$argOrValIsSthOrNullFuncName($value2);
             }
         );
 
         $this->expectExceptionObjectOnCall(
-            new ArgumentException('value3'),
-            static function () use ($argIsSthOrNullFuncName, $value3): void {
-                A::$argIsSthOrNullFuncName($value3, 'value3');
+            new $exceptionClass('value3'),
+            static function () use ($argOrValIsSthOrNullFuncName, $value3): void {
+                A::$argOrValIsSthOrNullFuncName($value3, 'value3');
             }
         );
 
@@ -67,17 +68,18 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
      * @param string $name
      * @return void
      */
-    protected function checkArgIsSthOfOrNullFunction(string $name): void
+    protected function checkArgOrValIsSthOfOrNullFunction(string $name): void
     {
         if (
-            !preg_match('~^test(Arg(Is[[:alpha:]]+OfOrNull))$~', $name, $match)
+            !preg_match('~^test((Arg|Val)(Is[[:alpha:]]+OfOrNull))$~', $name, $match)
             || !method_exists(A::class, $match[1])
-            || !method_exists(V::class, $match[2])
+            || !method_exists(V::class, $match[3])
         ) {
             throw new InvalidArgumentException('Argument "name" is invalid.');
         }
-        $argIsSthOfOrNullFuncName = lcfirst($match[1]);
-        $isSthOfOrNullFuncName = lcfirst($match[2]);
+        $argOrValIsSthOfOrNullFuncName = lcfirst($match[1]);
+        $isSthOfOrNullFuncName = lcfirst($match[3]);
+        $exceptionClass = ($match[2] === 'Arg') ? ArgumentException::class : ValueException::class;
 
         $mock = Mockery::mock(V::class)->makePartial();
 
@@ -97,122 +99,19 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
 
         MockValidation::setMock($mock);
 
-        A::$argIsSthOfOrNullFuncName($value1, $arg1);
+        A::$argOrValIsSthOfOrNullFuncName($value1, $arg1);
 
         $this->expectExceptionObjectOnCall(
-            new ArgumentException('value'),
-            static function () use ($argIsSthOfOrNullFuncName, $value2, $arg2): void {
-                A::$argIsSthOfOrNullFuncName($value2, $arg2);
+            new $exceptionClass('value'),
+            static function () use ($argOrValIsSthOfOrNullFuncName, $value2, $arg2): void {
+                A::$argOrValIsSthOfOrNullFuncName($value2, $arg2);
             }
         );
 
         $this->expectExceptionObjectOnCall(
-            new ArgumentException('value3'),
-            static function () use ($argIsSthOfOrNullFuncName, $value3, $arg3): void {
-                A::$argIsSthOfOrNullFuncName($value3, $arg3, 'value3');
-            }
-        );
-
-        MockValidation::unsetMock();
-    }
-
-    /**
-     * @param string $name
-     * @return void
-     */
-    protected function checkValIsSthOrNullFunction(string $name): void
-    {
-        if (
-            !preg_match('~^test(Val(Is[[:alpha:]]+OrNull))$~', $name, $match)
-            || !method_exists(A::class, $match[1])
-            || !method_exists(V::class, $match[2])
-        ) {
-            throw new InvalidArgumentException('Argument "name" is invalid.');
-        }
-        $valIsSthOrNullFuncName = lcfirst($match[1]);
-        $isSthOrNullFuncName = lcfirst($match[2]);
-
-        $mock = Mockery::mock(V::class)->makePartial();
-
-        $value1 = 'value-1';
-        $mock->expects($isSthOrNullFuncName)->once()->with($value1)->andReturnTrue();
-
-        $value2 = 'value-2';
-        $mock->expects($isSthOrNullFuncName)->once()->with($value2)->andReturnFalse();
-
-        $value3 = 'value-3';
-        $mock->expects($isSthOrNullFuncName)->once()->with($value3)->andReturnFalse();
-
-        $mock->expects($isSthOrNullFuncName)->never();
-
-        MockValidation::setMock($mock);
-
-        A::$valIsSthOrNullFuncName($value1);
-
-        $this->expectExceptionObjectOnCall(
-            new ValueException('value'),
-            static function () use ($valIsSthOrNullFuncName, $value2): void {
-                A::$valIsSthOrNullFuncName($value2);
-            }
-        );
-
-        $this->expectExceptionObjectOnCall(
-            new ValueException('value3'),
-            static function () use ($valIsSthOrNullFuncName, $value3): void {
-                A::$valIsSthOrNullFuncName($value3, 'value3');
-            }
-        );
-
-        MockValidation::unsetMock();
-    }
-
-    /**
-     * @param string $name
-     * @return void
-     */
-    protected function checkValIsSthOfOrNullFunction(string $name): void
-    {
-        if (
-            !preg_match('~^test(Val(Is[[:alpha:]]+OfOrNull))$~', $name, $match)
-            || !method_exists(A::class, $match[1])
-            || !method_exists(V::class, $match[2])
-        ) {
-            throw new InvalidArgumentException('Argument "name" is invalid.');
-        }
-        $valIsSthOfOrNullFuncName = lcfirst($match[1]);
-        $isSthOfOrNullFuncName = lcfirst($match[2]);
-
-        $mock = Mockery::mock(V::class)->makePartial();
-
-        $value1 = 'value-1';
-        $arg1 = 'arg-1';
-        $mock->expects($isSthOfOrNullFuncName)->once()->with($value1, $arg1)->andReturnTrue();
-
-        $value2 = 'value-2';
-        $arg2 = 'arg-2';
-        $mock->expects($isSthOfOrNullFuncName)->once()->with($value2, $arg2)->andReturnFalse();
-
-        $value3 = 'value-3';
-        $arg3 = 'arg-3';
-        $mock->expects($isSthOfOrNullFuncName)->once()->with($value3, $arg3)->andReturnFalse();
-
-        $mock->expects($isSthOfOrNullFuncName)->never();
-
-        MockValidation::setMock($mock);
-
-        A::$valIsSthOfOrNullFuncName($value1, $arg1);
-
-        $this->expectExceptionObjectOnCall(
-            new ValueException('value'),
-            static function () use ($valIsSthOfOrNullFuncName, $value2, $arg2): void {
-                A::$valIsSthOfOrNullFuncName($value2, $arg2);
-            }
-        );
-
-        $this->expectExceptionObjectOnCall(
-            new ValueException('value3'),
-            static function () use ($valIsSthOfOrNullFuncName, $value3, $arg3): void {
-                A::$valIsSthOfOrNullFuncName($value3, $arg3, 'value3');
+            new $exceptionClass('value3'),
+            static function () use ($argOrValIsSthOfOrNullFuncName, $value3, $arg3): void {
+                A::$argOrValIsSthOfOrNullFuncName($value3, $arg3, 'value3');
             }
         );
 

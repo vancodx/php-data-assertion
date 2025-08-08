@@ -11,7 +11,7 @@ class BoolOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsBoolOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -19,7 +19,7 @@ class BoolOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsTrueOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -27,6 +27,6 @@ class BoolOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsFalseOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 }

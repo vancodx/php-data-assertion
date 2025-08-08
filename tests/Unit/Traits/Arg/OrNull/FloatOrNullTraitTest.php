@@ -11,7 +11,7 @@ class FloatOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testArgIsFloatOrNull(): void
     {
-        $this->checkArgIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -19,7 +19,7 @@ class FloatOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testArgIsUFloatOrNull(): void
     {
-        $this->checkArgIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -27,7 +27,7 @@ class FloatOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testArgIsPosFloatOrNull(): void
     {
-        $this->checkArgIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -35,6 +35,6 @@ class FloatOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testArgIsNegFloatOrNull(): void
     {
-        $this->checkArgIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 }

@@ -11,7 +11,7 @@ class AssocOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsAssocOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -19,7 +19,7 @@ class AssocOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsAssocLenOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -27,7 +27,7 @@ class AssocOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsEmptyAssocOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -35,7 +35,7 @@ class AssocOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsAssocSoloOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -43,7 +43,7 @@ class AssocOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsAssocDuoOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -51,7 +51,7 @@ class AssocOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsAssocTrioOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 
     /**
@@ -59,6 +59,6 @@ class AssocOrNullTraitTest extends OrNullTraitsTestCase
      */
     public function testValIsAssocQuadOrNull(): void
     {
-        $this->checkValIsSthOrNullFunction(__FUNCTION__);
+        $this->checkArgOrValIsSthOrNullFunction(__FUNCTION__);
     }
 }
