@@ -28,8 +28,13 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
         }
         $argOrValIsSthOrNullFuncName = lcfirst($match[1]);
         $isSthOrNullFuncName = lcfirst($match[3]);
-        $exceptionClass = ($match[2] === 'Arg') ? ArgumentException::class : ValueException::class;
-        $newExceptionFuncName = ($match[2] === 'Arg') ? 'newArgumentException' : 'newValueException';
+        if ($match[2] === 'Arg') {
+            $exceptionClass = ArgumentException::class;
+            $newExceptionFuncName = 'newArgumentException';
+        } else {
+            $exceptionClass = ValueException::class;
+            $newExceptionFuncName = 'newValueException';
+        }
 
         $mockA = Mockery::mock(A::class)->makePartial();
         $mockA->shouldAllowMockingProtectedMethods();
@@ -90,8 +95,13 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
         }
         $argOrValIsSthOfOrNullFuncName = lcfirst($match[1]);
         $isSthOfOrNullFuncName = lcfirst($match[3]);
-        $exceptionClass = ($match[2] === 'Arg') ? ArgumentException::class : ValueException::class;
-        $newExceptionFuncName = ($match[2] === 'Arg') ? 'newArgumentException' : 'newValueException';
+        if ($match[2] === 'Arg') {
+            $exceptionClass = ArgumentException::class;
+            $newExceptionFuncName = 'newArgumentException';
+        } else {
+            $exceptionClass = ValueException::class;
+            $newExceptionFuncName = 'newValueException';
+        }
 
         $mockA = Mockery::mock(A::class)->makePartial();
         $mockA->shouldAllowMockingProtectedMethods();
