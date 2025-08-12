@@ -34,7 +34,7 @@ trait TryGetVariableNameTrait
     /**
      * @param int $options [optional]
      * @param int $limit [optional]
-     * @return list<array{file?: string, line?: int, function: string}>
+     * @return list<array{function: string, file?: string, line?: int}>
      */
     protected static function debugBacktrace(int $options = DEBUG_BACKTRACE_PROVIDE_OBJECT, int $limit = 0): array
     {
