@@ -12,7 +12,7 @@ trait TryGetVariableNameTrait
      */
     protected static function tryGetVariableName(): ?string
     {
-        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+        $trace = static::debugBacktrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
         if (count($trace) >= 2) {
             $call = $trace[1];
             if (array_key_exists('file', $call) && array_key_exists('line', $call)) {
@@ -29,5 +29,15 @@ trait TryGetVariableNameTrait
             }
         }
         return null;
+    }
+
+    /**
+     * @param int $options [optional]
+     * @param int $limit [optional]
+     * @return list<array{file?: string, line?: int, function: string}>
+     */
+    protected static function debugBacktrace(int $options = DEBUG_BACKTRACE_PROVIDE_OBJECT, int $limit = 0): array
+    {
+        return debug_backtrace($options, $limit);
     }
 }
