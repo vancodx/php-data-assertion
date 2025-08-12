@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionClass;
 use ReflectionMethod;
@@ -41,7 +40,7 @@ class DocBlockTagTest extends TestCase
     public function testDocBlockTag(string $funcName, ?string $narrowType): void
     {
         if (!preg_match('~^(?:arg|value)(Is[[:alpha:]]+)$~', $funcName, $match)) {
-            throw new InvalidArgumentException('Argument "funcName" is invalid.');
+            throw V::newArgumentException(compact('funcName'));
         }
         $sourceFuncName = lcfirst($match[1]);
 

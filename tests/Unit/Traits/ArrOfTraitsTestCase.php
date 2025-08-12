@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Traits;
 
-use InvalidArgumentException;
 use Mockery;
 use Tests\Support\MockValidation;
 use VanCodX\Data\Assertion\Assertion as A;
@@ -24,7 +23,7 @@ abstract class ArrOfTraitsTestCase extends MockeryTestCase
             || !method_exists(A::class, $match[1])
             || !method_exists(V::class, $match[3])
         ) {
-            throw new InvalidArgumentException('Argument "name" is invalid.');
+            throw V::newArgumentException(compact('name'));
         }
         $argOrValIsArrOfFuncName = lcfirst($match[1]);
         $isArrOfFuncName = lcfirst($match[3]);
@@ -94,7 +93,7 @@ abstract class ArrOfTraitsTestCase extends MockeryTestCase
             || !method_exists(A::class, $match[1])
             || !method_exists(V::class, $match[3])
         ) {
-            throw new InvalidArgumentException('Argument "name" is invalid.');
+            throw V::newArgumentException(compact('name'));
         }
         $argOrValIsArrOfSthFuncName = lcfirst($match[1]);
         $isArrOfSthFuncName = lcfirst($match[3]);
@@ -161,7 +160,7 @@ abstract class ArrOfTraitsTestCase extends MockeryTestCase
             || !method_exists(A::class, $match[1])
             || !method_exists(V::class, $match[3])
         ) {
-            throw new InvalidArgumentException('Argument "name" is invalid.');
+            throw V::newArgumentException(compact('name'));
         }
         $argOrValIsArrOfSthOfFuncName = lcfirst($match[1]);
         $isArrOfSthOfFuncName = lcfirst($match[3]);

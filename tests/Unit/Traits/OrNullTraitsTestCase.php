@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Traits;
 
-use InvalidArgumentException;
 use Mockery;
 use Tests\Support\MockValidation;
 use VanCodX\Data\Assertion\Assertion as A;
@@ -24,7 +23,7 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
             || !method_exists(A::class, $match[1])
             || !method_exists(V::class, $match[3])
         ) {
-            throw new InvalidArgumentException('Argument "name" is invalid.');
+            throw V::newArgumentException(compact('name'));
         }
         $argOrValIsSthOrNullFuncName = lcfirst($match[1]);
         $isSthOrNullFuncName = lcfirst($match[3]);
@@ -91,7 +90,7 @@ abstract class OrNullTraitsTestCase extends MockeryTestCase
             || !method_exists(A::class, $match[1])
             || !method_exists(V::class, $match[3])
         ) {
-            throw new InvalidArgumentException('Argument "name" is invalid.');
+            throw V::newArgumentException(compact('name'));
         }
         $argOrValIsSthOfOrNullFuncName = lcfirst($match[1]);
         $isSthOfOrNullFuncName = lcfirst($match[3]);
