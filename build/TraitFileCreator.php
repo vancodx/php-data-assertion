@@ -159,6 +159,32 @@ class TraitFileCreator
     }
 
     /**
+     * @return array<string, ReflectionMethod>
+     */
+    protected function getMethodsKeyedByName(): array
+    {
+        $methods = $this->getMethods();
+        return array_combine(
+            array_map(static fn (ReflectionMethod $method): string => $method->getName(), $methods),
+            $methods
+        );
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function getMethodNamesOrDividers(): array
+    {
+        preg_match_all(
+            '~// ={10} [A-Z]+ =+ //|public static function (is[[:alpha:]]+)\(~',
+            file_get_contents($this->getSourceClass()->getFileName()),
+            $matches,
+            PREG_SET_ORDER
+        );
+        return array_map(static fn (array $match): string => (count($match) === 2) ? $match[1] : $match[0], $matches);
+    }
+
+    /**
      * @return void
      */
     public function create(): void
@@ -229,12 +255,19 @@ class TraitFileCreator
             $data .= '    use ' . $subCreator->getName() . ';' . "\n";
         }
 
+        $methodsKeyedByName = $this->getMethodsKeyedByName();
+        $methodNamesOrDividers = $this->getMethodNamesOrDividers();
+
         // converted methods
-        $methods = $this->getMethods();
-        $lastMethodIndex = array_key_last($methods);
-        foreach ($methods as $methodIndex => $method) {
-            $data .= (new MethodCodeConverter($method, $functionPrefix))->convert();
-            if ($methodIndex != $lastMethodIndex) {
+        $lastIndex = array_key_last($methodNamesOrDividers);
+        foreach ($methodNamesOrDividers as $index => $methodNameOrDivider) {
+            if (array_key_exists($methodNameOrDivider, $methodsKeyedByName)) {
+                $method = $methodsKeyedByName[$methodNameOrDivider];
+                $data .= (new MethodCodeConverter($method, $functionPrefix))->convert() . "\n";
+            } else {
+                $data .= '    ' . $methodNameOrDivider . "\n";
+            }
+            if ($index !== $lastIndex) {
                 $data .= "\n";
             }
         }
