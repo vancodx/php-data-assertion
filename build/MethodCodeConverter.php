@@ -106,7 +106,7 @@ class MethodCodeConverter
         $data .= '([$varName ?: (static::tryGetVariableName() ?: \'value\') => $value]);' . "\n";
 
         $data .= '        }' . "\n";
-        $data .= '    }' . "\n";
+        $data .= '    }';
 
         return $data;
     }

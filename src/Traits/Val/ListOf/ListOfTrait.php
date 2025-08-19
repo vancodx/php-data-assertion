@@ -21,6 +21,8 @@ trait ListOfTrait
         }
     }
 
+    // ========== BOOL ========================================================== //
+
     /**
      * @param mixed $value
      * @param string $varName [optional]
@@ -34,6 +36,8 @@ trait ListOfTrait
             throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
+
+    // ========== INT =========================================================== //
 
     /**
      * @param mixed $value
@@ -105,6 +109,8 @@ trait ListOfTrait
         }
     }
 
+    // ========== FLOAT ========================================================= //
+
     /**
      * @param mixed $value
      * @param string $varName [optional]
@@ -160,6 +166,8 @@ trait ListOfTrait
             throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
+
+    // ========== NUM =========================================================== //
 
     /**
      * @param mixed $value
@@ -217,6 +225,8 @@ trait ListOfTrait
         }
     }
 
+    // ========== STR =========================================================== //
+
     /**
      * @param mixed $value
      * @param string $varName [optional]
@@ -245,6 +255,8 @@ trait ListOfTrait
         }
     }
 
+    // ========== MISC ========================================================== //
+
     /**
      * @param mixed $value
      * @param string $varName [optional]
@@ -258,6 +270,8 @@ trait ListOfTrait
             throw static::newValueException([$varName ?: (static::tryGetVariableName() ?: 'value') => $value]);
         }
     }
+
+    // ========== OBJ =========================================================== //
 
     /**
      * @param mixed $value
