@@ -175,9 +175,18 @@ class TraitFileCreator
      */
     protected function getMethodNamesOrDividers(): array
     {
+        $filename = $this->getSourceClass()->getFileName();
+        if (!V::isStrLen($filename)) {
+            throw V::newValueException(compact('filename'));
+        }
+        $contents = file_get_contents($filename);
+        if (!V::isStrLen($contents)) {
+            throw V::newValueException(compact('contents'));
+        }
+
         preg_match_all(
             '~// ={10} [A-Z]+ =+ //|public static function (is[[:alpha:]]+)\(~',
-            file_get_contents($this->getSourceClass()->getFileName()),
+            $contents,
             $matches,
             PREG_SET_ORDER
         );
