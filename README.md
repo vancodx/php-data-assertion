@@ -5,6 +5,8 @@ This library contains a set of static methods for assertion the type of variable
 methods. The main goal is to improve the quality of data validation and static analysis. Each assertion method has
 "@phpstan-assert" tag in its DocBlock comment to narrow the type of "value" argument.
 
+This library also includes (my PHP Data Validation library)[https://github.com/vancodx/php-data-validation].
+
 Installation
 ------------
 
